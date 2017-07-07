@@ -1,7 +1,9 @@
-package com.wizard.hastar;
+package com.wizard.hastar.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.wizard.hastar.R;
 
 public class MainActivity extends AppCompatActivity {
 
