@@ -23,6 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
         // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackManager.getInstance().init(this) 来初始化滑动返回」
         // 在 super.onCreate(savedInstanceState) 之前调用该方法
         initSwipeBackFinish();
+        StatusBarUtil.setTransparent(this);
         super.onCreate(savedInstanceState);
         initData();
     }

@@ -29,6 +29,7 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
+import com.jaeger.library.StatusBarUtil;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.wizard.hastar.BuildConfig;
@@ -68,7 +69,7 @@ public class AccountBookTodayViewActivity extends BaseActivity {
     private MaterialViewPager mViewPager;
 
     private DrawerLayout mDrawer;
-    private ActionBarDrawerToggle mDrawerToggle;
+//    private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
 
     private TodayViewFragmentAdapter todayModeAdapter = null;
@@ -103,7 +104,6 @@ public class AccountBookTodayViewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_book_today_view);
-
         mContext = this;
 
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
@@ -126,7 +126,6 @@ public class AccountBookTodayViewActivity extends BaseActivity {
 
         toolbar = mViewPager.getToolbar();
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         custom = (MaterialRippleLayout) mDrawer.findViewById(R.id.custom_layout);
         tags = (MaterialRippleLayout) mDrawer.findViewById(R.id.tag_layout);
         months = (MaterialRippleLayout) mDrawer.findViewById(R.id.month_layout);
@@ -165,19 +164,19 @@ public class AccountBookTodayViewActivity extends BaseActivity {
             }
         }
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0) {
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                monthExpense.setText("0");
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                monthExpense.withNumber(
-                        RecordManager.getCurrentMonthExpense()).setDuration(500).start();
-            }
-        };
-        mDrawer.setDrawerListener(mDrawerToggle);
+//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0) {
+//            public void onDrawerClosed(View view) {
+//                super.onDrawerClosed(view);
+//                monthExpense.setText("0");
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//                monthExpense.withNumber(
+//                        RecordManager.getCurrentMonthExpense()).setDuration(500).start();
+//            }
+//        };
+//        mDrawer.setDrawerListener(mDrawerToggle);
 
 
         View logo = findViewById(R.id.logo_white);
@@ -397,19 +396,23 @@ public class AccountBookTodayViewActivity extends BaseActivity {
             //TODO 填充用户信息
             SettingManager.getInstance().setTodayViewInfoShouldChange(false);
         }
+        if (mDrawer.isDrawerOpen(GravityCompat.END)) {
+            mDrawer.closeDrawer(GravityCompat.END);//关闭抽屉
+        }
+        super.onResume();
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return mDrawerToggle.onOptionsItemSelected(item) ||
-                super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    protected void onPostCreate(Bundle savedInstanceState) {
+//        super.onPostCreate(savedInstanceState);
+//        mDrawerToggle.syncState();
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return mDrawerToggle.onOptionsItemSelected(item) ||
+//                super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected void initData() {
@@ -418,7 +421,7 @@ public class AccountBookTodayViewActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+        if (mDrawer.isDrawerOpen(GravityCompat.END)) {
             mDrawer.closeDrawers();
             return;
         }

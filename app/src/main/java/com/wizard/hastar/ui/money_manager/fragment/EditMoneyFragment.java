@@ -51,7 +51,7 @@ public class EditMoneyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.edit_money_fragment, container, false);
+        mView = inflater.inflate(R.layout.fragment_edit_money, container, false);
 
         if (getArguments().getInt("type") == FragmentManager.MAIN_ACTIVITY_FRAGMENT) {
             FragmentManager.mainActivityEditMoneyFragment = this;

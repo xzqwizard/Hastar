@@ -47,6 +47,7 @@ import com.h6ah4i.android.widget.advrecyclerview.decoration.SimpleListDividerDec
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
 import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -92,7 +93,6 @@ public class AccountBookListViewActivity extends BaseActivity
     private Context mContext;
 
     private DrawerLayout mDrawer;
-    private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
 
     private RecyclerView recyclerView;
@@ -154,7 +154,6 @@ public class AccountBookListViewActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_book_list_view);
-
         mContext = this;
 
         userName = (TextView) findViewById(R.id.user_name);
@@ -180,23 +179,7 @@ public class AccountBookListViewActivity extends BaseActivity
         setTitle("");
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        int currentapiVersion = Build.VERSION.SDK_INT;
-
-        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
-            // Do something for lollipop and above versions
-            Window window = this.getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ContextCompat.getColor(mContext, R.color.statusBarColor));
-            }
-        } else {
-            // do something for phones running an SDK before lollipop
-            View statusBarView = (View) findViewById(R.id.status_bar_view);
-            statusBarView.getLayoutParams().height = CoCoinUtil.getStatusBarHeight();
-        }
-
+        StatusBarUtil.setColorForDrawerLayout(this, mDrawer, getResources().getColor(R.color.colorAccent), 0);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
 
@@ -209,9 +192,6 @@ public class AccountBookListViewActivity extends BaseActivity
                 actionBar.setHomeButtonEnabled(true);
             }
         }
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
-        mDrawer.setDrawerListener(mDrawerToggle);
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setVoiceSearch(false);
@@ -806,17 +786,6 @@ public class AccountBookListViewActivity extends BaseActivity
         return true;
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return mDrawerToggle.onOptionsItemSelected(item) ||
-                super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void initData() {
@@ -919,6 +888,8 @@ public class AccountBookListViewActivity extends BaseActivity
                 break;
             case R.id.select:
                 selectRecords();
+                break;
+            default:
                 break;
         }
     }

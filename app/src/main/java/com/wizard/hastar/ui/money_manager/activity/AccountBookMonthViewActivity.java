@@ -52,7 +52,6 @@ public class AccountBookMonthViewActivity extends BaseActivity {
     private MaterialViewPager mViewPager;
 
     private DrawerLayout mDrawer;
-    private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
 
     private MonthViewFragmentAdapter monthModeAdapter = null;
@@ -107,9 +106,6 @@ public class AccountBookMonthViewActivity extends BaseActivity {
                 actionBar.setHomeButtonEnabled(true);
             }
         }
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, 0, 0);
-        mDrawer.setDrawerListener(mDrawerToggle);
 
         View logo = findViewById(R.id.logo_white);
         if (logo != null) {
@@ -216,18 +212,6 @@ public class AccountBookMonthViewActivity extends BaseActivity {
         super.onDestroy();
 
         MaterialViewPagerHelper.unregister(this);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return mDrawerToggle.onOptionsItemSelected(item) ||
-                super.onOptionsItemSelected(item);
     }
 
     @Override

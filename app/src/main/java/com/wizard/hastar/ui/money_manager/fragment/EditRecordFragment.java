@@ -51,7 +51,7 @@ public class EditRecordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.edit_money_fragment, container, false);
+        mView = inflater.inflate(R.layout.fragment_edit_money, container, false);
 
         fragmentPosition = getArguments().getInt("position");
         remarkEditView = (MaterialEditText) mView.findViewById(R.id.remark);

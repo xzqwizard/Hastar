@@ -33,8 +33,9 @@ public class MyGridView extends GridView {
             // The two leftmost bits in the height measure spec have
             // a special meaning, hence we can't use them to describe height.
             heightSpec = MeasureSpec.makeMeasureSpec(
-                    Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
-        } else {
+                    Integer.MAX_VALUE >>2, MeasureSpec.AT_MOST);
+        }
+        else {
             // Any other height should be respected as is.
             heightSpec = heightMeasureSpec;
         }
