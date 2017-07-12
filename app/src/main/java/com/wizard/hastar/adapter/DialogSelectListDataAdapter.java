@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wizard.hastar.R;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 
@@ -49,10 +49,10 @@ public class DialogSelectListDataAdapter extends BaseAdapter {
         TextView expense = (TextView)convertView.findViewById(R.id.expense);
         TextView sum = (TextView)convertView.findViewById(R.id.sum);
 
-        month.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        year.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        expense.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        sum.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        month.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        year.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        expense.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        sum.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         double monthNum = data.get(position)[1];
         if (monthNum == -1) {
@@ -60,10 +60,10 @@ public class DialogSelectListDataAdapter extends BaseAdapter {
             year.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             month.setText("--");
         } else {
-            month.setText(CoCoinUtil.getInstance().GetMonthShort((int)data.get(position)[1]));
+            month.setText(HaStarUtil.getInstance().GetMonthShort((int)data.get(position)[1]));
             year.setText((int)data.get(position)[0] + "");
         }
-        expense.setText(CoCoinUtil.GetInMoney((int)data.get(position)[3]));
+        expense.setText(HaStarUtil.GetInMoney((int)data.get(position)[3]));
         sum.setText((int)data.get(position)[2] + "'s");
 
         return convertView;

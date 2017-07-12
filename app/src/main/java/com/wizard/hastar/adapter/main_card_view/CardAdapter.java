@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.wizard.hastar.R;
+import com.wizard.hastar.ui.HomePageActivity;
+import com.wizard.hastar.ui.SettingActivity;
 import com.wizard.hastar.ui.money_manager.activity.MoneyMainActivity;
 import com.wizard.hastar.util.ToastUtil;
 
@@ -22,10 +24,10 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private List<Integer> mList = new ArrayList<>();
     private CardAdapterHelper mCardAdapterHelper = new CardAdapterHelper();
-    private Context context;
+    private Activity activity;
 
-    public CardAdapter(Context context, List<Integer> mList) {
-        this.context = context;
+    public CardAdapter(Activity activity, List<Integer> mList) {
+        this.activity = activity;
         this.mList = mList;
     }
 
@@ -46,7 +48,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 ToastUtil.displayShortToast(holder.mImageView.getContext(), "" + position);
                 switch (position) {
                     case 0:
-                        context.startActivity(new Intent(context, MoneyMainActivity.class));
+                        activity.startActivity(new Intent(activity, MoneyMainActivity.class));
+                        break;
+                    case 1:
+                        activity.startActivity(new Intent(activity, HomePageActivity.class));
+                        break;
+                    case 2:
+                        activity.startActivity(new Intent(activity, SettingActivity.class));
+                        break;
+                    default:
                         break;
                 }
             }

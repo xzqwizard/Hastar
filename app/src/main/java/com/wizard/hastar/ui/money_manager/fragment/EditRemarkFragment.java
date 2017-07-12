@@ -15,7 +15,7 @@ import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 /**
  * Created by 伟平 on 2015/10/27.
@@ -64,9 +64,9 @@ public class EditRemarkFragment extends Fragment {
         setEditColor(shouldChange);
 
         if (getArguments().getInt("type") == FragmentManager.EDIT_RECORD_ACTIVITY_FRAGMENT
-                && CoCoinUtil.editRecordPosition != -1) {
+                && HaStarUtil.editRecordPosition != -1) {
             FragmentManager.editRecordActivityEditRemarkFragment
-                    .setRemark(RecordManager.SELECTED_RECORDS.get(CoCoinUtil.editRecordPosition).getRemark());
+                    .setRemark(RecordManager.SELECTED_RECORDS.get(HaStarUtil.editRecordPosition).getRemark());
             FragmentManager.editRecordActivityEditRemarkFragment.setLastSelection();
         }
 
@@ -122,9 +122,9 @@ public class EditRemarkFragment extends Fragment {
             editView.setPrimaryColor(SettingManager.getInstance().getRemindColor());
             editView.setHelperTextColor(SettingManager.getInstance().getRemindColor());
         } else {
-            editView.setTextColor(CoCoinUtil.getInstance().MY_BLUE);
-            editView.setPrimaryColor(CoCoinUtil.getInstance().MY_BLUE);
-            editView.setHelperTextColor(CoCoinUtil.getInstance().MY_BLUE);
+            editView.setTextColor(HaStarUtil.getInstance().MY_BLUE);
+            editView.setPrimaryColor(HaStarUtil.getInstance().MY_BLUE);
+            editView.setHelperTextColor(HaStarUtil.getInstance().MY_BLUE);
         }
     }
 

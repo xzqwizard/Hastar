@@ -35,7 +35,7 @@ import com.wizard.hastar.adapter.ReportTagAdapter;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.widget.ExpandedListView;
 import com.wizard.hastar.widget.MyGridView;
 
@@ -300,19 +300,19 @@ public class ReportViewFragment extends Fragment
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
 
         expenseTV = (TextView) view.findViewById(R.id.expense);
-        expenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        expenseTV.setText(CoCoinUtil.GetInMoney(0));
+        expenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        expenseTV.setText(HaStarUtil.GetInMoney(0));
         tagsTV = (TextView) view.findViewById(R.id.tags);
-        tagsTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        tagsTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         tagsTV.setText("");
 
         title = (TextView) view.findViewById(R.id.title);
-        title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        title.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         pieLayout = (LinearLayout) view.findViewById(R.id.pie_layout);
         pieLayout.setVisibility(View.GONE);
         pieTitle = (TextView) view.findViewById(R.id.pie_title);
-        pieTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        pieTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         pie = (PieChartView) view.findViewById(R.id.chart_pie);
         pie.setChartRotationEnabled(false);
         pie.setOnValueTouchListener(new PieChartOnValueSelectListener() {
@@ -322,32 +322,32 @@ public class ReportViewFragment extends Fragment
                 String text;
                 tagId = Integer.valueOf(String.valueOf(sliceValue.getLabelAsChars()));
                 double percent = sliceValue.getValue() / expense * 100;
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    text = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
-                            CoCoinUtil.GetPercentString(percent) + "\n" +
-                            "于" + CoCoinUtil.GetTagName(tagId);
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    text = HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
+                            HaStarUtil.GetPercentString(percent) + "\n" +
+                            "于" + HaStarUtil.GetTagName(tagId);
                 } else {
-                    text = CoCoinUtil.GetSpendString((int) sliceValue.getValue())
+                    text = HaStarUtil.GetSpendString((int) sliceValue.getValue())
                             + " (takes " + String.format("%.2f", percent) + "%)\n"
-                            + "in " + CoCoinUtil.GetTagName(tagId);
+                            + "in " + HaStarUtil.GetTagName(tagId);
                 }
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     if (selectYear) {
                         dialogTitle = from.get(Calendar.YEAR) + "年" + "\n" +
-                                CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
-                                "于" + CoCoinUtil.GetTagName(tagId);
+                                HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
+                                "于" + HaStarUtil.GetTagName(tagId);
                     } else {
                         dialogTitle = from.get(Calendar.YEAR) + "年" + (from.get(Calendar.MONTH) + 1) + "月" + "\n" +
-                                CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
-                                "于" + CoCoinUtil.GetTagName(tagId);
+                                HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
+                                "于" + HaStarUtil.GetTagName(tagId);
                     }
                 } else {
                     if (selectYear) {
-                        dialogTitle = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) + " in " + from.get(Calendar.YEAR) + "\n" +
-                                "on " + CoCoinUtil.GetTagName(tagId);
+                        dialogTitle = HaStarUtil.GetSpendString((int) sliceValue.getValue()) + " in " + from.get(Calendar.YEAR) + "\n" +
+                                "on " + HaStarUtil.GetTagName(tagId);
                     } else {
-                        dialogTitle = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) + " in " + CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " + from.get(Calendar.YEAR) + "\n" +
-                                "on " + CoCoinUtil.GetTagName(tagId);
+                        dialogTitle = HaStarUtil.GetSpendString((int) sliceValue.getValue()) + " in " + HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " + from.get(Calendar.YEAR) + "\n" +
+                                "on " + HaStarUtil.GetTagName(tagId);
                     }
                 }
                 Snackbar snackbar =
@@ -357,11 +357,11 @@ public class ReportViewFragment extends Fragment
                                 .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                                 .position(Snackbar.SnackbarPosition.BOTTOM)
                                 .margin(15, 15)
-                                .backgroundDrawable(CoCoinUtil.GetSnackBarBackground(-3))
+                                .backgroundDrawable(HaStarUtil.GetSnackBarBackground(-3))
                                 .text(text)
-                                .textTypeface(CoCoinUtil.GetTypeface())
+                                .textTypeface(HaStarUtil.GetTypeface())
                                 .textColor(Color.WHITE)
-                                .actionLabelTypeface(CoCoinUtil.GetTypeface())
+                                .actionLabelTypeface(HaStarUtil.GetTypeface())
                                 .actionLabel(mContext.getResources()
                                         .getString(R.string.check))
                                 .actionColor(Color.WHITE)
@@ -391,7 +391,7 @@ public class ReportViewFragment extends Fragment
         iconLeft.setOnClickListener(this);
 
         emptyTip = (TextView) view.findViewById(R.id.empty_tip);
-        emptyTip.setTypeface(CoCoinUtil.GetTypeface());
+        emptyTip.setTypeface(HaStarUtil.GetTypeface());
         if (RecordManager.getInstance(MyApplication.getAppContext()).RECORDS.size() != 0) {
             emptyTip.setText(mContext.getResources().getString(R.string.report_view_please_select_data));
         } else {
@@ -402,49 +402,49 @@ public class ReportViewFragment extends Fragment
         highestTagLayout = (LinearLayout) view.findViewById(R.id.highest_tag_layout);
         highestTagLayout.setVisibility(View.GONE);
         highestTagTitle = (TextView) view.findViewById(R.id.highest_tag_title);
-        highestTagTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestTagTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestFirst = (LinearLayout) view.findViewById(R.id.highest_first);
         highestFirst.setOnClickListener(this);
         highestTagIcon = (ImageView) view.findViewById(R.id.highest_tag_icon);
         highestTagText = (TextView) view.findViewById(R.id.highest_tag_text);
-        highestTagText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestTagText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestTagExpenseTV = (TextView) view.findViewById(R.id.highest_tag_expense);
-        highestTagExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestTagExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestTagRecord = (TextView) view.findViewById(R.id.highest_tag_sum);
-        highestTagRecord.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestTagRecord.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestTags = (ExpandedListView) view.findViewById(R.id.highest_tags);
         highestTagsLayout = (ExpandableRelativeLayout) view.findViewById(R.id.expand_highest_tag);
         highestTagMore = (LinearLayout) view.findViewById(R.id.highest_tag_more);
         highestTagMore.setOnClickListener(this);
         highestTagMoreText = (TextView) view.findViewById(R.id.highest_tag_more_text);
-        highestTagMoreText.setTypeface(CoCoinUtil.getInstance().GetTypeface());
+        highestTagMoreText.setTypeface(HaStarUtil.getInstance().GetTypeface());
         highestTags.setOnItemClickListener(this);
 
         lowestTagLayout = (LinearLayout) view.findViewById(R.id.lowest_tag_layout);
         lowestTagLayout.setVisibility(View.GONE);
         lowestTagTitle = (TextView) view.findViewById(R.id.lowest_tag_title);
-        lowestTagTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestTagTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestFirst = (LinearLayout) view.findViewById(R.id.lowest_first);
         lowestFirst.setOnClickListener(this);
         lowestTagIcon = (ImageView) view.findViewById(R.id.lowest_tag_icon);
         lowestTagText = (TextView) view.findViewById(R.id.lowest_tag_text);
-        lowestTagText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestTagText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestTagExpenseTV = (TextView) view.findViewById(R.id.lowest_tag_expense);
-        lowestTagExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestTagExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestTagRecord = (TextView) view.findViewById(R.id.lowest_tag_sum);
-        lowestTagRecord.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestTagRecord.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestTags = (ExpandedListView) view.findViewById(R.id.lowest_tags);
         lowestTagsLayout = (ExpandableRelativeLayout) view.findViewById(R.id.expand_lowest_tag);
         lowestTagMore = (LinearLayout) view.findViewById(R.id.lowest_tag_more);
         lowestTagMore.setOnClickListener(this);
         lowestTagMoreText = (TextView) view.findViewById(R.id.lowest_tag_more_text);
-        lowestTagMoreText.setTypeface(CoCoinUtil.getInstance().GetTypeface());
+        lowestTagMoreText.setTypeface(HaStarUtil.getInstance().GetTypeface());
         lowestTags.setOnItemClickListener(this);
 
         lineLayout = (LinearLayout) view.findViewById(R.id.line_layout);
         lineLayout.setVisibility(View.GONE);
         lineTitle = (TextView) view.findViewById(R.id.line_title);
-        lineTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lineTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         line = (LineChartView) view.findViewById(R.id.chart_line);
         line.setZoomEnabled(false);
         line.setOnValueTouchListener(new LineChartOnValueSelectListener() {
@@ -453,46 +453,46 @@ public class ReportViewFragment extends Fragment
                 // snack bar
                 String text;
                 double percent = value.getY() / expense * 100;
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     if (selectYear) {
-                        text = "在" + reportYear + " " + CoCoinUtil.getInstance().GetMonthShort((int) value.getX() + 1) + "\n" +
-                                CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent);
+                        text = "在" + reportYear + " " + HaStarUtil.getInstance().GetMonthShort((int) value.getX() + 1) + "\n" +
+                                HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent);
                     } else {
-                        text = "在" + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + CoCoinUtil.getInstance().GetWhetherFuck() + "\n" +
-                                CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent);
+                        text = "在" + HaStarUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + HaStarUtil.getInstance().GetWhetherFuck() + "\n" +
+                                HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent);
                     }
                 } else {
                     if (selectYear) {
-                        text = CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent) + "\n" +
-                                "in " + reportYear + " " + CoCoinUtil.getInstance().GetMonthShort((int) value.getX() + 1);
+                        text = HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent) + "\n" +
+                                "in " + reportYear + " " + HaStarUtil.getInstance().GetMonthShort((int) value.getX() + 1);
                     } else {
-                        text = CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent) + "\n" +
-                                "on " + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + CoCoinUtil.getInstance().GetWhetherFuck();
+                        text = HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent) + "\n" +
+                                "on " + HaStarUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + HaStarUtil.getInstance().GetWhetherFuck();
                     }
                 }
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     if (selectYear) {
-                        dialogTitle = "在" + reportYear + " " + CoCoinUtil.getInstance().GetMonthShort((int) value.getX() + 1) + "\n" +
-                                CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent);
+                        dialogTitle = "在" + reportYear + " " + HaStarUtil.getInstance().GetMonthShort((int) value.getX() + 1) + "\n" +
+                                HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent);
                     } else {
-                        dialogTitle = "在" + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + CoCoinUtil.getInstance().GetWhetherFuck() + "\n" +
-                                CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent);
+                        dialogTitle = "在" + HaStarUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + HaStarUtil.getInstance().GetWhetherFuck() + "\n" +
+                                HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent);
                     }
                 } else {
                     if (selectYear) {
-                        dialogTitle = CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent) + "\n" +
-                                "in " + reportYear + " " + CoCoinUtil.getInstance().GetMonthShort((int) value.getX() + 1);
+                        dialogTitle = HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent) + "\n" +
+                                "in " + reportYear + " " + HaStarUtil.getInstance().GetMonthShort((int) value.getX() + 1);
                     } else {
-                        dialogTitle = CoCoinUtil.GetSpendString((int) value.getY()) +
-                                CoCoinUtil.GetPercentString(percent) + "\n" +
-                                "on " + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + CoCoinUtil.getInstance().GetWhetherFuck();
+                        dialogTitle = HaStarUtil.GetSpendString((int) value.getY()) +
+                                HaStarUtil.GetPercentString(percent) + "\n" +
+                                "on " + HaStarUtil.getInstance().GetMonthShort(reportMonth) + " " + ((int) value.getX() + 1) + HaStarUtil.getInstance().GetWhetherFuck();
                     }
                 }
                 final Calendar tempFrom = Calendar.getInstance();
@@ -515,11 +515,11 @@ public class ReportViewFragment extends Fragment
                                 .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                                 .position(Snackbar.SnackbarPosition.BOTTOM)
                                 .margin(15, 15)
-                                .backgroundDrawable(CoCoinUtil.GetSnackBarBackground(-3))
+                                .backgroundDrawable(HaStarUtil.GetSnackBarBackground(-3))
                                 .text(text)
-                                .textTypeface(CoCoinUtil.GetTypeface())
+                                .textTypeface(HaStarUtil.GetTypeface())
                                 .textColor(Color.WHITE)
-                                .actionLabelTypeface(CoCoinUtil.GetTypeface())
+                                .actionLabelTypeface(HaStarUtil.GetTypeface())
                                 .actionLabel(mContext.getResources()
                                         .getString(R.string.check))
                                 .actionColor(Color.WHITE)
@@ -551,95 +551,95 @@ public class ReportViewFragment extends Fragment
         highestMonthLayout = (LinearLayout) view.findViewById(R.id.highest_month_layout);
         highestMonthLayout.setVisibility(View.GONE);
         monthTitle = (TextView) view.findViewById(R.id.month_title);
-        monthTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        monthTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestFirstMonth = (LinearLayout) view.findViewById(R.id.highest_first_month);
         highestFirstMonth.setOnClickListener(this);
         highestFirstIcon = (TextView) view.findViewById(R.id.highest_month_icon);
-        highestFirstIcon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestFirstIcon.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestFirstText = (TextView) view.findViewById(R.id.highest_month_text);
-        highestFirstText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestFirstText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestFirstExpenseTV = (TextView) view.findViewById(R.id.highest_month_expense);
-        highestFirstExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestFirstExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestFirstRecord = (TextView) view.findViewById(R.id.highest_month_sum);
-        highestFirstRecord.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestFirstRecord.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestMonths = (ExpandedListView) view.findViewById(R.id.highest_month);
         highestMonths.setOnItemClickListener(this);
         highestMonthsLayout = (ExpandableRelativeLayout) view.findViewById(R.id.expand_highest_month);
         highestLast = (LinearLayout) view.findViewById(R.id.highest_last_month);
         highestLast.setOnClickListener(this);
         highestLastIcon = (TextView) view.findViewById(R.id.lowest_month_icon);
-        highestLastIcon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestLastIcon.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestLastText = (TextView) view.findViewById(R.id.lowest_month_text);
-        highestLastText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestLastText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestLastExpenseTV = (TextView) view.findViewById(R.id.lowest_month_expense);
-        highestLastExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestLastExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestLastRecord = (TextView) view.findViewById(R.id.lowest_month_sum);
-        highestLastRecord.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestLastRecord.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestMonthMore = (LinearLayout) view.findViewById(R.id.highest_month_more);
         highestMonthMore.setOnClickListener(this);
         highestMonthMoreText = (TextView) view.findViewById(R.id.highest_month_more_text);
-        highestMonthMoreText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestMonthMoreText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         averageMonthText = (TextView) view.findViewById(R.id.average_month_text);
-        averageMonthText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        averageMonthText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         averageMonthExpenseTV = (TextView) view.findViewById(R.id.average_month_expense);
-        averageMonthExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        averageMonthExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         averageMonthRecordTV = (TextView) view.findViewById(R.id.average_month_sum);
-        averageMonthRecordTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        averageMonthRecordTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         highestDayLayout = (LinearLayout) view.findViewById(R.id.highest_day_layout);
         highestDayLayout.setVisibility(View.GONE);
         highestDayTitle = (TextView) view.findViewById(R.id.highest_day_title);
-        highestDayTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestDayTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestFirstDay = (LinearLayout) view.findViewById(R.id.highest_first_day);
         highestFirstDay.setOnClickListener(this);
         highestDayIcon = (TextView) view.findViewById(R.id.highest_day_icon);
-        highestDayIcon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestDayIcon.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestDayText = (TextView) view.findViewById(R.id.highest_day_text);
-        highestDayText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestDayText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestDayExpenseTV = (TextView) view.findViewById(R.id.highest_day_expense);
-        highestDayExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestDayExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestDayRecord = (TextView) view.findViewById(R.id.highest_day_sum);
-        highestDayRecord.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        highestDayRecord.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         highestDays = (ExpandedListView) view.findViewById(R.id.highest_days);
         highestDaysLayout = (ExpandableRelativeLayout) view.findViewById(R.id.expand_highest_day);
         highestDayMore = (LinearLayout) view.findViewById(R.id.highest_day_more);
         highestDayMore.setOnClickListener(this);
         highestDayMoreText = (TextView) view.findViewById(R.id.highest_day_more_text);
-        highestDayMoreText.setTypeface(CoCoinUtil.getInstance().GetTypeface());
+        highestDayMoreText.setTypeface(HaStarUtil.getInstance().GetTypeface());
         highestDays.setOnItemClickListener(this);
 
         lowestDayLayout = (LinearLayout) view.findViewById(R.id.lowest_day_layout);
         lowestDayLayout.setVisibility(View.GONE);
         lowestDayTitle = (TextView) view.findViewById(R.id.lowest_day_title);
-        lowestDayTitle.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestDayTitle.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestFirstDay = (LinearLayout) view.findViewById(R.id.lowest_first_day);
         lowestFirstDay.setOnClickListener(this);
         lowestDayIcon = (TextView) view.findViewById(R.id.lowest_day_icon);
-        lowestDayIcon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestDayIcon.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestDayText = (TextView) view.findViewById(R.id.lowest_day_text);
-        lowestDayText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestDayText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestDayExpenseTV = (TextView) view.findViewById(R.id.lowest_day_expense);
-        lowestDayExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestDayExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestDayRecord = (TextView) view.findViewById(R.id.lowest_day_sum);
-        lowestDayRecord.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        lowestDayRecord.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         lowestDays = (ExpandedListView) view.findViewById(R.id.lowest_days);
         lowestDaysLayout = (ExpandableRelativeLayout) view.findViewById(R.id.expand_lowest_day);
         lowestDayMore = (LinearLayout) view.findViewById(R.id.lowest_day_more);
         lowestDayMore.setOnClickListener(this);
         lowestDayMoreText = (TextView) view.findViewById(R.id.lowest_day_more_text);
-        lowestDayMoreText.setTypeface(CoCoinUtil.getInstance().GetTypeface());
+        lowestDayMoreText.setTypeface(HaStarUtil.getInstance().GetTypeface());
         lowestDays.setOnItemClickListener(this);
 
         averageDayText = (TextView) view.findViewById(R.id.average_day_text);
-        averageDayText.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        averageDayText.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         averageDayExpenseTV = (TextView) view.findViewById(R.id.average_day_expense);
-        averageDayExpenseTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        averageDayExpenseTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         averageDayRecordTV = (TextView) view.findViewById(R.id.average_day_sum);
-        averageDayRecordTV.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        averageDayRecordTV.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         foot = (TextView) view.findViewById(R.id.foot);
-        foot.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        foot.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         foot.setVisibility(View.GONE);
 
         if (IS_EMPTY) {
@@ -817,23 +817,23 @@ public class ReportViewFragment extends Fragment
                 if (gettingData) return;
                 tagId = (int) highestTagExpense.get(position + 1)[2];
                 expense = (int) highestTagExpense.get(position + 1)[0];
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     if (selectYear) {
                         dialogTitle = from.get(Calendar.YEAR) + "年" + "\n" +
-                                CoCoinUtil.GetSpendString(expense) +
-                                "于" + CoCoinUtil.GetTagName(tagId);
+                                HaStarUtil.GetSpendString(expense) +
+                                "于" + HaStarUtil.GetTagName(tagId);
                     } else {
                         dialogTitle = from.get(Calendar.YEAR) + "年" + (from.get(Calendar.MONTH) + 1) + "月" + "\n" +
-                                CoCoinUtil.GetSpendString(expense) +
-                                "于" + CoCoinUtil.GetTagName(tagId);
+                                HaStarUtil.GetSpendString(expense) +
+                                "于" + HaStarUtil.GetTagName(tagId);
                     }
                 } else {
                     if (selectYear) {
-                        dialogTitle = CoCoinUtil.GetSpendString(expense) + " in " + from.get(Calendar.YEAR) + "\n" +
-                                "on " + CoCoinUtil.GetTagName(tagId);
+                        dialogTitle = HaStarUtil.GetSpendString(expense) + " in " + from.get(Calendar.YEAR) + "\n" +
+                                "on " + HaStarUtil.GetTagName(tagId);
                     } else {
-                        dialogTitle = CoCoinUtil.GetSpendString(expense) + " in " + CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " + from.get(Calendar.YEAR) + "\n" +
-                                "on " + CoCoinUtil.GetTagName(tagId);
+                        dialogTitle = HaStarUtil.GetSpendString(expense) + " in " + HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " + from.get(Calendar.YEAR) + "\n" +
+                                "on " + HaStarUtil.GetTagName(tagId);
                     }
                 }
                 new GetData(from, to, tagId, dialogTitle).execute();
@@ -842,23 +842,23 @@ public class ReportViewFragment extends Fragment
                 if (gettingData) return;
                 tagId = (int) lowestTagExpense.get(position + 1)[2];
                 expense = (int) lowestTagExpense.get(position + 1)[0];
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     if (selectYear) {
                         dialogTitle = from.get(Calendar.YEAR) + "年" + "\n" +
-                                CoCoinUtil.GetSpendString(expense) +
-                                "于" + CoCoinUtil.GetTagName(tagId);
+                                HaStarUtil.GetSpendString(expense) +
+                                "于" + HaStarUtil.GetTagName(tagId);
                     } else {
                         dialogTitle = from.get(Calendar.YEAR) + "年" + (from.get(Calendar.MONTH) + 1) + "月" + "\n" +
-                                CoCoinUtil.GetSpendString(expense) +
-                                "于" + CoCoinUtil.GetTagName(tagId);
+                                HaStarUtil.GetSpendString(expense) +
+                                "于" + HaStarUtil.GetTagName(tagId);
                     }
                 } else {
                     if (selectYear) {
-                        dialogTitle = CoCoinUtil.GetSpendString(expense) + " in " + from.get(Calendar.YEAR) + "\n" +
-                                "on " + CoCoinUtil.GetTagName(tagId);
+                        dialogTitle = HaStarUtil.GetSpendString(expense) + " in " + from.get(Calendar.YEAR) + "\n" +
+                                "on " + HaStarUtil.GetTagName(tagId);
                     } else {
-                        dialogTitle = CoCoinUtil.GetSpendString(expense) + " in " + CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " + from.get(Calendar.YEAR) + "\n" +
-                                "on " + CoCoinUtil.GetTagName(tagId);
+                        dialogTitle = HaStarUtil.GetSpendString(expense) + " in " + HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " + from.get(Calendar.YEAR) + "\n" +
+                                "on " + HaStarUtil.GetTagName(tagId);
                     }
                 }
                 new GetData(from, to, tagId, dialogTitle).execute();
@@ -867,10 +867,10 @@ public class ReportViewFragment extends Fragment
                 if (gettingData) return;
                 expense = (int) highestMonthExpense.get(position + 1)[3];
                 month = (int) highestMonthExpense.get(position + 1)[1];
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    dialogTitle = from.get(Calendar.YEAR) + "年" + CoCoinUtil.getInstance().GetMonthShort(month + 1) + "\n" + CoCoinUtil.GetSpendString(expense);
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    dialogTitle = from.get(Calendar.YEAR) + "年" + HaStarUtil.getInstance().GetMonthShort(month + 1) + "\n" + HaStarUtil.GetSpendString(expense);
                 } else {
-                    dialogTitle = CoCoinUtil.GetSpendString(expense) + "\nin " + from.get(Calendar.YEAR) + " " + CoCoinUtil.getInstance().GetMonthShort(month + 1);
+                    dialogTitle = HaStarUtil.GetSpendString(expense) + "\nin " + from.get(Calendar.YEAR) + " " + HaStarUtil.getInstance().GetMonthShort(month + 1);
                 }
                 tempFrom.set(reportYear, month, 1, 0, 0, 0);
                 tempFrom.add(Calendar.SECOND, 0);
@@ -883,10 +883,10 @@ public class ReportViewFragment extends Fragment
                 expense = (int) highestDayExpense.get(position + 1)[3];
                 month = (int) highestDayExpense.get(position + 1)[1];
                 day = (int) highestDayExpense.get(position + 1)[2];
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    dialogTitle = from.get(Calendar.YEAR) + "年" + CoCoinUtil.getInstance().GetMonthShort(month + 1) + day + CoCoinUtil.getInstance().GetWhetherFuck() + "\n" + CoCoinUtil.GetSpendString(expense);
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    dialogTitle = from.get(Calendar.YEAR) + "年" + HaStarUtil.getInstance().GetMonthShort(month + 1) + day + HaStarUtil.getInstance().GetWhetherFuck() + "\n" + HaStarUtil.GetSpendString(expense);
                 } else {
-                    dialogTitle = CoCoinUtil.GetSpendString(expense) + "\nin " + from.get(Calendar.YEAR) + " " + CoCoinUtil.getInstance().GetMonthShort(month + 1) + " " + day;
+                    dialogTitle = HaStarUtil.GetSpendString(expense) + "\nin " + from.get(Calendar.YEAR) + " " + HaStarUtil.getInstance().GetMonthShort(month + 1) + " " + day;
                 }
                 tempFrom.set(reportYear, month, day, 0, 0, 0);
                 tempFrom.add(Calendar.SECOND, 0);
@@ -899,10 +899,10 @@ public class ReportViewFragment extends Fragment
                 expense = (int) lowestDayExpense.get(position + 1)[3];
                 month = (int) lowestDayExpense.get(position + 1)[1];
                 day = (int) lowestDayExpense.get(position + 1)[2];
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    dialogTitle = from.get(Calendar.YEAR) + "年" + CoCoinUtil.getInstance().GetMonthShort(month + 1) + day + CoCoinUtil.getInstance().GetWhetherFuck() + "\n" + CoCoinUtil.GetSpendString(expense);
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    dialogTitle = from.get(Calendar.YEAR) + "年" + HaStarUtil.getInstance().GetMonthShort(month + 1) + day + HaStarUtil.getInstance().GetWhetherFuck() + "\n" + HaStarUtil.GetSpendString(expense);
                 } else {
-                    dialogTitle = CoCoinUtil.GetSpendString(expense) + "\nin " + from.get(Calendar.YEAR) + " " + CoCoinUtil.getInstance().GetMonthShort(month + 1) + " " + day;
+                    dialogTitle = HaStarUtil.GetSpendString(expense) + "\nin " + from.get(Calendar.YEAR) + " " + HaStarUtil.getInstance().GetMonthShort(month + 1) + " " + day;
                 }
                 tempFrom.set(reportYear, month, day, 0, 0, 0);
                 tempFrom.add(Calendar.SECOND, 0);
@@ -1147,7 +1147,7 @@ public class ReportViewFragment extends Fragment
 
             for (int i = 0; i < tagExpense.length; i++) {
                 if (tagExpense[i] != 0) {
-                    int cfht = CoCoinUtil.IsCFHT(i);
+                    int cfht = HaStarUtil.IsCFHT(i);
                     if (cfht != -1) {
                         needExpense.get(cfht)[0] += tagExpense[i];
                     }
@@ -1174,7 +1174,7 @@ public class ReportViewFragment extends Fragment
             ArrayList<SliceValue> sliceValues = new ArrayList<>();
             for (int i = 0; i < lowestTagExpense.size(); i++) {
                 SliceValue sliceValue = new SliceValue(
-                        (float) (double) lowestTagExpense.get(i)[0], CoCoinUtil.GetTagColor((int) lowestTagExpense.get(i)[2]));
+                        (float) (double) lowestTagExpense.get(i)[0], HaStarUtil.GetTagColor((int) lowestTagExpense.get(i)[2]));
                 sliceValue.setLabel(String.valueOf((int) lowestTagExpense.get(i)[2]));
                 sliceValues.add(sliceValue);
             }
@@ -1351,7 +1351,7 @@ public class ReportViewFragment extends Fragment
 
                 Axis axisX = new Axis();
                 Axis axisY = new Axis().setHasLines(true);
-                axisX.setName(reportYear + " " + CoCoinUtil.GetMonthShort(reportMonth));
+                axisX.setName(reportYear + " " + HaStarUtil.GetMonthShort(reportMonth));
                 lineChartData.setAxisXBottom(axisX);
                 lineChartData.setAxisYLeft(axisY);
 
@@ -1383,22 +1383,22 @@ public class ReportViewFragment extends Fragment
 
             // for title
             if (selectYear) {
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     title.setText(" ● " + reportYear + "年" + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 } else {
                     title.setText(" ● " + reportYear + " " + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 }
             } else {
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    title.setText(" ● " + reportYear + "年" + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    title.setText(" ● " + reportYear + "年" + HaStarUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 } else {
-                    title.setText(" ● " + reportYear + " " + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
+                    title.setText(" ● " + reportYear + " " + HaStarUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 }
             }
 
             // for basic information
-            expenseTV.setText(CoCoinUtil.getInstance().GetInMoney((int) expense));
-            if ("zh".equals(CoCoinUtil.GetLanguage())) {
+            expenseTV.setText(HaStarUtil.getInstance().GetInMoney((int) expense));
+            if ("zh".equals(HaStarUtil.GetLanguage())) {
                 tagsTV.setText(records + MyApplication.getAppContext().getResources().getString(R.string.report_view_records) + tags + MyApplication.getAppContext().getResources().getString(R.string.report_view_tags));
             } else {
                 tagsTV.setText(records + " " + MyApplication.getAppContext().getResources().getString(R.string.report_view_records) + " " + tags + " " + MyApplication.getAppContext().getResources().getString(R.string.report_view_tags));
@@ -1412,19 +1412,19 @@ public class ReportViewFragment extends Fragment
 
             // for highest tag expense
             highestTagLayout.setVisibility(View.VISIBLE);
-            highestTagIcon.setImageDrawable(CoCoinUtil.GetTagIconDrawable((int) highestTagExpense.get(0)[2]));
-            highestTagText.setText(CoCoinUtil.GetTagName((int) highestTagExpense.get(0)[2]) + CoCoinUtil.getInstance().GetPurePercentString(highestTagExpense.get(0)[1] * 100));
-            highestTagExpenseTV.setText(CoCoinUtil.GetInMoney((int) highestTagExpense.get(0)[0]));
-            highestTagRecord.setText(CoCoinUtil.GetInRecords((int) highestTagExpense.get(0)[3]));
+            highestTagIcon.setImageDrawable(HaStarUtil.GetTagIconDrawable((int) highestTagExpense.get(0)[2]));
+            highestTagText.setText(HaStarUtil.GetTagName((int) highestTagExpense.get(0)[2]) + HaStarUtil.getInstance().GetPurePercentString(highestTagExpense.get(0)[1] * 100));
+            highestTagExpenseTV.setText(HaStarUtil.GetInMoney((int) highestTagExpense.get(0)[0]));
+            highestTagRecord.setText(HaStarUtil.GetInRecords((int) highestTagExpense.get(0)[3]));
             highestTagsAdapter = new ReportTagAdapter(highestTagExpense);
             highestTags.setAdapter(highestTagsAdapter);
 
             // for lowest tag expense
             lowestTagLayout.setVisibility(View.VISIBLE);
-            lowestTagIcon.setImageDrawable(CoCoinUtil.GetTagIconDrawable((int) lowestTagExpense.get(0)[2]));
-            lowestTagText.setText(CoCoinUtil.GetTagName((int) lowestTagExpense.get(0)[2]) + CoCoinUtil.getInstance().GetPurePercentString(lowestTagExpense.get(0)[1] * 100));
-            lowestTagExpenseTV.setText(CoCoinUtil.GetInMoney((int) lowestTagExpense.get(0)[0]));
-            lowestTagRecord.setText(CoCoinUtil.GetInRecords((int) lowestTagExpense.get(0)[3]));
+            lowestTagIcon.setImageDrawable(HaStarUtil.GetTagIconDrawable((int) lowestTagExpense.get(0)[2]));
+            lowestTagText.setText(HaStarUtil.GetTagName((int) lowestTagExpense.get(0)[2]) + HaStarUtil.getInstance().GetPurePercentString(lowestTagExpense.get(0)[1] * 100));
+            lowestTagExpenseTV.setText(HaStarUtil.GetInMoney((int) lowestTagExpense.get(0)[0]));
+            lowestTagRecord.setText(HaStarUtil.GetInRecords((int) lowestTagExpense.get(0)[3]));
             lowestTagsAdapter = new ReportTagAdapter(lowestTagExpense);
             lowestTags.setAdapter(lowestTagsAdapter);
 
@@ -1438,20 +1438,20 @@ public class ReportViewFragment extends Fragment
                 highestMonthLayout.setVisibility(View.VISIBLE);
                 highestFirstIcon.setBackgroundResource(getBackgroundResource());
                 highestFirstIcon.setText(((int) highestMonthExpense.get(0)[1] + 1) + "");
-                highestFirstText.setText(CoCoinUtil.GetMonthShort((int) highestMonthExpense.get(0)[1] + 1) + " " + reportYear + CoCoinUtil.getInstance().GetPurePercentString(highestMonthExpense.get(0)[4] * 100));
-                highestFirstExpenseTV.setText(CoCoinUtil.GetInMoney((int) highestMonthExpense.get(0)[3]));
-                highestFirstRecord.setText(CoCoinUtil.GetInRecords((int) highestMonthExpense.get(0)[5]));
+                highestFirstText.setText(HaStarUtil.GetMonthShort((int) highestMonthExpense.get(0)[1] + 1) + " " + reportYear + HaStarUtil.getInstance().GetPurePercentString(highestMonthExpense.get(0)[4] * 100));
+                highestFirstExpenseTV.setText(HaStarUtil.GetInMoney((int) highestMonthExpense.get(0)[3]));
+                highestFirstRecord.setText(HaStarUtil.GetInRecords((int) highestMonthExpense.get(0)[5]));
                 highestLastIcon.setBackgroundResource(getBackgroundResource());
                 highestLastIcon.setText(((int) highestMonthExpense.get(11)[1] + 1) + "");
-                highestLastText.setText(CoCoinUtil.GetMonthShort((int) highestMonthExpense.get(11)[1] + 1) + " " + reportYear + CoCoinUtil.getInstance().GetPurePercentString(highestMonthExpense.get(11)[4] * 100));
-                highestLastExpenseTV.setText(CoCoinUtil.GetInMoney((int) highestMonthExpense.get(11)[3]));
-                highestLastRecord.setText(CoCoinUtil.GetInRecords((int) highestMonthExpense.get(11)[5]));
+                highestLastText.setText(HaStarUtil.GetMonthShort((int) highestMonthExpense.get(11)[1] + 1) + " " + reportYear + HaStarUtil.getInstance().GetPurePercentString(highestMonthExpense.get(11)[4] * 100));
+                highestLastExpenseTV.setText(HaStarUtil.GetInMoney((int) highestMonthExpense.get(11)[3]));
+                highestLastRecord.setText(HaStarUtil.GetInRecords((int) highestMonthExpense.get(11)[5]));
                 highestMonthsAdapter = new ReportMonthAdapter(highestMonthExpense, reportYear);
                 highestMonths.setAdapter(highestMonthsAdapter);
 
                 // for average day expense
-                averageMonthExpenseTV.setText(CoCoinUtil.getInstance().GetInMoney((int) averageMonthExpense));
-                averageMonthRecordTV.setText(CoCoinUtil.getInstance().GetInRecords(averageMonthRecord));
+                averageMonthExpenseTV.setText(HaStarUtil.getInstance().GetInMoney((int) averageMonthExpense));
+                averageMonthRecordTV.setText(HaStarUtil.getInstance().GetInRecords(averageMonthRecord));
             } else {
                 highestMonthLayout.setVisibility(View.GONE);
             }
@@ -1460,9 +1460,9 @@ public class ReportViewFragment extends Fragment
             highestDayLayout.setVisibility(View.VISIBLE);
             highestDayIcon.setBackgroundResource(getBackgroundResource());
             highestDayIcon.setText((int) highestDayExpense.get(0)[2] + "");
-            highestDayText.setText(CoCoinUtil.getInstance().GetCalendarStringDayExpenseSort(MyApplication.getAppContext(), (int) highestDayExpense.get(0)[0], (int) highestDayExpense.get(0)[1] + 1, (int) highestDayExpense.get(0)[2]) + CoCoinUtil.getInstance().GetPurePercentString(highestDayExpense.get(0)[4] * 100));
-            highestDayExpenseTV.setText(CoCoinUtil.GetInMoney((int) highestDayExpense.get(0)[3]));
-            highestDayRecord.setText(CoCoinUtil.GetInRecords((int) highestDayExpense.get(0)[5]));
+            highestDayText.setText(HaStarUtil.getInstance().GetCalendarStringDayExpenseSort(MyApplication.getAppContext(), (int) highestDayExpense.get(0)[0], (int) highestDayExpense.get(0)[1] + 1, (int) highestDayExpense.get(0)[2]) + HaStarUtil.getInstance().GetPurePercentString(highestDayExpense.get(0)[4] * 100));
+            highestDayExpenseTV.setText(HaStarUtil.GetInMoney((int) highestDayExpense.get(0)[3]));
+            highestDayRecord.setText(HaStarUtil.GetInRecords((int) highestDayExpense.get(0)[5]));
             highestDaysAdapter = new ReportDayAdapter(highestDayExpense, reportMonth);
             highestDays.setAdapter(highestDaysAdapter);
 
@@ -1470,29 +1470,29 @@ public class ReportViewFragment extends Fragment
             lowestDayLayout.setVisibility(View.VISIBLE);
             lowestDayIcon.setBackgroundResource(getBackgroundResource());
             lowestDayIcon.setText((int) lowestDayExpense.get(0)[2] + "");
-            lowestDayText.setText(CoCoinUtil.getInstance().GetCalendarStringDayExpenseSort(MyApplication.getAppContext(), (int) lowestDayExpense.get(0)[0], (int) lowestDayExpense.get(0)[1] + 1, (int) lowestDayExpense.get(0)[2]) + CoCoinUtil.getInstance().GetPurePercentString(lowestDayExpense.get(0)[4] * 100));
-            lowestDayExpenseTV.setText(CoCoinUtil.GetInMoney((int) lowestDayExpense.get(0)[3]));
-            lowestDayRecord.setText(CoCoinUtil.GetInRecords((int) lowestDayExpense.get(0)[5]));
+            lowestDayText.setText(HaStarUtil.getInstance().GetCalendarStringDayExpenseSort(MyApplication.getAppContext(), (int) lowestDayExpense.get(0)[0], (int) lowestDayExpense.get(0)[1] + 1, (int) lowestDayExpense.get(0)[2]) + HaStarUtil.getInstance().GetPurePercentString(lowestDayExpense.get(0)[4] * 100));
+            lowestDayExpenseTV.setText(HaStarUtil.GetInMoney((int) lowestDayExpense.get(0)[3]));
+            lowestDayRecord.setText(HaStarUtil.GetInRecords((int) lowestDayExpense.get(0)[5]));
             lowestDaysAdapter = new ReportDayAdapter(lowestDayExpense, reportMonth);
             lowestDays.setAdapter(lowestDaysAdapter);
 
             // for average day expense
-            averageDayExpenseTV.setText(CoCoinUtil.getInstance().GetInMoney((int) averageDayExpense));
-            averageDayRecordTV.setText(CoCoinUtil.getInstance().GetInRecords(averageDayRecord));
+            averageDayExpenseTV.setText(HaStarUtil.getInstance().GetInMoney((int) averageDayExpense));
+            averageDayRecordTV.setText(HaStarUtil.getInstance().GetInRecords(averageDayRecord));
 
             // for foot
             foot.setVisibility(View.VISIBLE);
             if (selectYear) {
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     foot.setText(" ● " + reportYear + "年" + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 } else {
                     foot.setText(" ● " + reportYear + " " + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 }
             } else {
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    foot.setText(" ● " + reportYear + "年" + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    foot.setText(" ● " + reportYear + "年" + HaStarUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 } else {
-                    foot.setText(" ● " + reportYear + " " + CoCoinUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
+                    foot.setText(" ● " + reportYear + " " + HaStarUtil.getInstance().GetMonthShort(reportMonth) + MyApplication.getAppContext().getResources().getString(R.string.report_view_foot));
                 }
             }
 

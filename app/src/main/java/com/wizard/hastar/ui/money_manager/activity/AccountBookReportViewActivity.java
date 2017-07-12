@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.wizard.hastar.adapter.ReportViewFragmentAdapter;
 import com.wizard.hastar.base.BaseActivity;
 import com.wizard.hastar.ui.money_manager.fragment.ReportViewFragment;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 public class AccountBookReportViewActivity extends BaseActivity
         implements
@@ -45,10 +44,10 @@ public class AccountBookReportViewActivity extends BaseActivity
 
         View view = mViewPager.getRootView();
         TextView title = (TextView)view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
+        title.setTypeface(HaStarUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.getInstance().typefaceLatoLight, Typeface.NORMAL);
+        mViewPager.getPagerTitleStrip().setTypeface(HaStarUtil.getInstance().typefaceLatoLight, Typeface.NORMAL);
         mViewPager.getPagerTitleStrip().setTextSize(45);
         mViewPager.getPagerTitleStrip().setUnderlineColor(Color.parseColor("#00000000"));
         mViewPager.getPagerTitleStrip().setIndicatorColor(Color.parseColor("#00000000"));
@@ -101,8 +100,8 @@ public class AccountBookReportViewActivity extends BaseActivity
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(-3),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        HaStarUtil.GetTagColor(-3),
+                        HaStarUtil.GetTagDrawable(-3)
                 );
             }
         });

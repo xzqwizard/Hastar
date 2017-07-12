@@ -2,18 +2,12 @@ package com.wizard.hastar.ui.money_manager.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
@@ -26,7 +20,7 @@ import com.wizard.hastar.ui.money_manager.fragment.FragmentManager;
 import com.wizard.hastar.ui.money_manager.fragment.TagChooseFragment;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.MyGridView;
 import com.wizard.hastar.widget.ScrollableViewPager;
@@ -63,9 +57,9 @@ public class EditRecordActivity extends BaseActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             position = extras.getInt("POSITION");
-            CoCoinUtil.editRecordPosition = RecordManager.SELECTED_RECORDS.size() - 1 - position;
+            HaStarUtil.editRecordPosition = RecordManager.SELECTED_RECORDS.size() - 1 - position;
         } else {
-            CoCoinUtil.editRecordPosition = -1;
+            HaStarUtil.editRecordPosition = -1;
         }
 
 // edit viewpager///////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +150,7 @@ public class EditRecordActivity extends BaseActivity
         intent.putExtra("POSITION", position);
         setResult(RESULT_OK, intent);
 
-        CoCoinUtil.editRecordPosition = -1;
+        HaStarUtil.editRecordPosition = -1;
 
         super.finish();
     }
@@ -183,20 +177,20 @@ public class EditRecordActivity extends BaseActivity
             return;
         }
         if (FragmentManager.editRecordActivityEditMoneyFragment.getNumberText().toString().equals("0")
-                && !CoCoinUtil.ClickButtonCommit(position)) {
-            if (CoCoinUtil.ClickButtonDelete(position)
-                    || CoCoinUtil.ClickButtonIsZero(position)) {
+                && !HaStarUtil.ClickButtonCommit(position)) {
+            if (HaStarUtil.ClickButtonDelete(position)
+                    || HaStarUtil.ClickButtonIsZero(position)) {
 
             } else {
-                FragmentManager.editRecordActivityEditMoneyFragment.setNumberText(CoCoinUtil.BUTTONS[position]);
+                FragmentManager.editRecordActivityEditMoneyFragment.setNumberText(HaStarUtil.BUTTONS[position]);
             }
         } else {
-            if (CoCoinUtil.ClickButtonDelete(position)) {
+            if (HaStarUtil.ClickButtonDelete(position)) {
                 if (longClick) {
                     FragmentManager.editRecordActivityEditMoneyFragment.setNumberText("0");
                     FragmentManager.editRecordActivityEditMoneyFragment.setHelpText(" ");
                     FragmentManager.editRecordActivityEditMoneyFragment.setHelpText(
-                            CoCoinUtil.FLOATINGLABELS[FragmentManager.editRecordActivityEditMoneyFragment
+                            HaStarUtil.FLOATINGLABELS[FragmentManager.editRecordActivityEditMoneyFragment
                                     .getNumberText().toString().length()]);
                 } else {
                     FragmentManager.editRecordActivityEditMoneyFragment.setNumberText(
@@ -208,20 +202,20 @@ public class EditRecordActivity extends BaseActivity
                         FragmentManager.editRecordActivityEditMoneyFragment.setHelpText(" ");
                     }
                 }
-            } else if (CoCoinUtil.ClickButtonCommit(position)) {
+            } else if (HaStarUtil.ClickButtonCommit(position)) {
                 commit();
             } else {
                 if (FIRST_EDIT) {
-                    FragmentManager.editRecordActivityEditMoneyFragment.setNumberText(CoCoinUtil.BUTTONS[position]);
+                    FragmentManager.editRecordActivityEditMoneyFragment.setNumberText(HaStarUtil.BUTTONS[position]);
                     FIRST_EDIT = false;
                 } else {
                     FragmentManager.editRecordActivityEditMoneyFragment
                             .setNumberText(FragmentManager.editRecordActivityEditMoneyFragment
-                                    .getNumberText().toString() + CoCoinUtil.BUTTONS[position]);
+                                    .getNumberText().toString() + HaStarUtil.BUTTONS[position]);
                 }
             }
         }
-        FragmentManager.editRecordActivityEditMoneyFragment.setHelpText(CoCoinUtil.FLOATINGLABELS[
+        FragmentManager.editRecordActivityEditMoneyFragment.setHelpText(HaStarUtil.FLOATINGLABELS[
                 FragmentManager.editRecordActivityEditMoneyFragment.getNumberText().toString().length()]);
     }
 
@@ -279,8 +273,8 @@ public class EditRecordActivity extends BaseActivity
                 x2 = ev.getX();
                 y2 = ev.getY();
                 if (editViewPager.getCurrentItem() == 0
-                        && CoCoinUtil.isPointInsideView(x2, y2, editViewPager)
-                        && CoCoinUtil.GetScreenWidth(mContext) - x2 <= 60) {
+                        && HaStarUtil.isPointInsideView(x2, y2, editViewPager)
+                        && HaStarUtil.GetScreenWidth(mContext) - x2 <= 60) {
                     return true;
                 }
                 break;

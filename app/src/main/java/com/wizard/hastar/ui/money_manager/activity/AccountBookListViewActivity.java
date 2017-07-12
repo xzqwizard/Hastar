@@ -3,8 +3,6 @@ package com.wizard.hastar.ui.money_manager.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.AsyncTask;
@@ -16,8 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,8 +22,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -55,7 +49,6 @@ import com.nispok.snackbar.enums.SnackbarType;
 import com.nispok.snackbar.listeners.ActionClickListener;
 import com.nispok.snackbar.listeners.EventListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wizard.hastar.BuildConfig;
 import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.DialogTagChooseGridViewAdapter;
@@ -64,19 +57,15 @@ import com.wizard.hastar.base.BaseActivity;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.CustomSliderView;
 import com.wizard.hastar.widget.DoubleSliderClickListener;
 import com.wizard.hastar.widget.MyGridView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller;
@@ -129,8 +118,8 @@ public class AccountBookListViewActivity extends BaseActivity
     private final double MIN_MONEY = 0;
     private final double MAX_MONEY = 99999;
 
-    private double LEFT_MONEY = CoCoinUtil.INPUT_MIN_EXPENSE;
-    private double RIGHT_MONEY = CoCoinUtil.INPUT_MAX_EXPENSE;
+    private double LEFT_MONEY = HaStarUtil.INPUT_MIN_EXPENSE;
+    private double RIGHT_MONEY = HaStarUtil.INPUT_MAX_EXPENSE;
     private int TAG_ID = -1;
     private Calendar LEFT_CALENDAR = null;
     private Calendar RIGHT_CALENDAR = null;
@@ -230,7 +219,7 @@ public class AccountBookListViewActivity extends BaseActivity
         });
 
         emptyTip = (TextView) findViewById(R.id.empty_tip);
-        emptyTip.setTypeface(CoCoinUtil.GetTypeface());
+        emptyTip.setTypeface(HaStarUtil.GetTypeface());
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
@@ -302,7 +291,7 @@ public class AccountBookListViewActivity extends BaseActivity
         recyclerView.setOnScrollListener(
                 verticalRecyclerViewFastScroller.getOnScrollListener());
 
-        CoCoinUtil.backupCoCoinRecord = null;
+        HaStarUtil.backupCoCoinRecord = null;
 
         if (RecordManager.SELECTED_RECORDS.size() == 0) {
             emptyTip.setVisibility(View.VISIBLE);
@@ -314,7 +303,7 @@ public class AccountBookListViewActivity extends BaseActivity
 
         infoLayout = (FrameLayout) mDrawer.findViewById(R.id.info_layout);
         LinearLayout.LayoutParams infoLayoutParams = new LinearLayout.LayoutParams(infoLayout.getLayoutParams());
-        infoLayoutParams.setMargins(0, CoCoinUtil.getStatusBarHeight() - CoCoinUtil.dpToPx(30), 0, 0);
+        infoLayoutParams.setMargins(0, HaStarUtil.getStatusBarHeight() - HaStarUtil.dpToPx(30), 0, 0);
         infoLayout.setLayoutParams(infoLayoutParams);
 
         profileImage = (CircleImageView) mDrawer.findViewById(R.id.profile_image);
@@ -331,7 +320,7 @@ public class AccountBookListViewActivity extends BaseActivity
 
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
-        HashMap<String, Integer> urls = CoCoinUtil.GetDrawerTopUrl();
+        HashMap<String, Integer> urls = HaStarUtil.GetDrawerTopUrl();
 
         for (String name : urls.keySet()) {
             CustomSliderView customSliderView = new CustomSliderView(this);
@@ -347,18 +336,18 @@ public class AccountBookListViewActivity extends BaseActivity
         mDemoSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 
         titleExpense = (TextView) findViewById(R.id.title_expense);
-        titleExpense.setTypeface(CoCoinUtil.typefaceLatoLight);
-        titleExpense.setText(CoCoinUtil.GetInMoney((int) (double) RecordManager.getInstance(mContext).SELECTED_SUM));
+        titleExpense.setTypeface(HaStarUtil.typefaceLatoLight);
+        titleExpense.setText(HaStarUtil.GetInMoney((int) (double) RecordManager.getInstance(mContext).SELECTED_SUM));
 
         titleSum = (TextView) findViewById(R.id.title_sum);
-        titleSum.setTypeface(CoCoinUtil.typefaceLatoLight);
+        titleSum.setTypeface(HaStarUtil.typefaceLatoLight);
         titleSum.setText(RecordManager.getInstance(mContext).SELECTED_RECORDS.size() + "'s");
 
 //        titleSlider = (SliderLayout)findViewById(R.id.title_slider);
 //        titleSlider.getLayoutParams().height = 48;
-//        titleSlider.getLayoutParams().width = 400 - CoCoinUtil.dpToPx(60 * 2);
+//        titleSlider.getLayoutParams().width = 400 - HaStarUtil.dpToPx(60 * 2);
 //
-//        HashMap<String, Integer> urls2 = CoCoinUtil.getTransparentUrls();
+//        HashMap<String, Integer> urls2 = HaStarUtil.getTransparentUrls();
 //
 //        CustomTitleSliderView customTitleSliderView = new CustomTitleSliderView(0 + "'s", CoCoinFragmentManager.NUMBER_SLIDER);
 //        customTitleSliderView
@@ -366,7 +355,7 @@ public class AccountBookListViewActivity extends BaseActivity
 //                .setScaleType(BaseSliderView.ScaleType.Fit);
 //        titleSlider.addSlider(customTitleSliderView);
 //
-//        customTitleSliderView = new CustomTitleSliderView(CoCoinUtil.GetInMoney(0), CoCoinFragmentManager.EXPENSE_SLIDER);
+//        customTitleSliderView = new CustomTitleSliderView(HaStarUtil.GetInMoney(0), CoCoinFragmentManager.EXPENSE_SLIDER);
 //        customTitleSliderView
 //                .image(urls2.get("1"))
 //                .setScaleType(BaseSliderView.ScaleType.Fit);
@@ -377,44 +366,44 @@ public class AccountBookListViewActivity extends BaseActivity
 //        titleSlider.setDuration(3000);
 //        titleSlider.setCustomIndicator((PagerIndicator) findViewById(R.id.custom_indicator));
 
-        ((TextView) findViewById(R.id.tag_title)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.tag_title_expense)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.tag_title_time)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.tag_title_tag)).setTypeface(CoCoinUtil.GetTypeface());
+        ((TextView) findViewById(R.id.tag_title)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.tag_title_expense)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.tag_title_time)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.tag_title_tag)).setTypeface(HaStarUtil.GetTypeface());
 
         setMoney = (TextView) findViewById(R.id.select_expense);
-        setMoney.setTypeface(CoCoinUtil.GetTypeface());
+        setMoney.setTypeface(HaStarUtil.GetTypeface());
         setMoney.setOnClickListener(this);
         noMoney = (TextView) findViewById(R.id.no_expense);
-        noMoney.setTypeface(CoCoinUtil.GetTypeface());
+        noMoney.setTypeface(HaStarUtil.GetTypeface());
         noMoney.setOnClickListener(this);
         setTime = (TextView) findViewById(R.id.select_time);
-        setTime.setTypeface(CoCoinUtil.GetTypeface());
+        setTime.setTypeface(HaStarUtil.GetTypeface());
         setTime.setOnClickListener(this);
         noTime = (TextView) findViewById(R.id.no_time);
-        noTime.setTypeface(CoCoinUtil.GetTypeface());
+        noTime.setTypeface(HaStarUtil.GetTypeface());
         noTime.setOnClickListener(this);
         setTag = (TextView) findViewById(R.id.select_tag);
-        setTag.setTypeface(CoCoinUtil.GetTypeface());
+        setTag.setTypeface(HaStarUtil.GetTypeface());
         setTag.setOnClickListener(this);
         noTag = (TextView) findViewById(R.id.no_tag);
-        noTag.setTypeface(CoCoinUtil.GetTypeface());
+        noTag.setTypeface(HaStarUtil.GetTypeface());
         noTag.setOnClickListener(this);
         select = (TextView) findViewById(R.id.select);
-        select.setTypeface(CoCoinUtil.GetTypeface());
+        select.setTypeface(HaStarUtil.GetTypeface());
         select.setOnClickListener(this);
 
         leftExpense = (TextView) findViewById(R.id.left_expense);
-        leftExpense.setTypeface(CoCoinUtil.GetTypeface());
+        leftExpense.setTypeface(HaStarUtil.GetTypeface());
         rightExpense = (TextView) findViewById(R.id.right_expense);
-        rightExpense.setTypeface(CoCoinUtil.GetTypeface());
+        rightExpense.setTypeface(HaStarUtil.GetTypeface());
         leftTime = (TextView) findViewById(R.id.left_time);
-        leftTime.setTypeface(CoCoinUtil.GetTypeface());
+        leftTime.setTypeface(HaStarUtil.GetTypeface());
         rightTime = (TextView) findViewById(R.id.right_time);
-        rightTime.setTypeface(CoCoinUtil.GetTypeface());
+        rightTime.setTypeface(HaStarUtil.GetTypeface());
         tagImage = (ImageView) findViewById(R.id.tag_image);
         tagName = (TextView) findViewById(R.id.tag_name);
-        tagName.setTypeface(CoCoinUtil.GetTypeface());
+        tagName.setTypeface(HaStarUtil.GetTypeface());
 
         setConditions();
 
@@ -424,15 +413,15 @@ public class AccountBookListViewActivity extends BaseActivity
     private void setConditions() {
         if (LEFT_MONEY == MIN_MONEY)
             leftExpense.setText(mContext.getResources().getString(R.string.any));
-        else leftExpense.setText(CoCoinUtil.GetInMoney((int) LEFT_MONEY));
+        else leftExpense.setText(HaStarUtil.GetInMoney((int) LEFT_MONEY));
         if (RIGHT_MONEY == MAX_MONEY)
             rightExpense.setText(mContext.getResources().getString(R.string.any));
-        else rightExpense.setText(CoCoinUtil.GetInMoney((int) RIGHT_MONEY));
+        else rightExpense.setText(HaStarUtil.GetInMoney((int) RIGHT_MONEY));
         if (LEFT_CALENDAR == null)
             leftTime.setText(mContext.getResources().getString(R.string.any));
         else {
             String dateString
-                    = CoCoinUtil.GetMonthShort(LEFT_CALENDAR.get(Calendar.MONTH) + 1)
+                    = HaStarUtil.GetMonthShort(LEFT_CALENDAR.get(Calendar.MONTH) + 1)
                     + " " + LEFT_CALENDAR.get(Calendar.DAY_OF_MONTH) + " " +
                     LEFT_CALENDAR.get(Calendar.YEAR);
             leftTime.setText(dateString);
@@ -441,7 +430,7 @@ public class AccountBookListViewActivity extends BaseActivity
             rightTime.setText(mContext.getResources().getString(R.string.any));
         else {
             String dateString
-                    = CoCoinUtil.GetMonthShort(RIGHT_CALENDAR.get(Calendar.MONTH) + 1)
+                    = HaStarUtil.GetMonthShort(RIGHT_CALENDAR.get(Calendar.MONTH) + 1)
                     + " " + RIGHT_CALENDAR.get(Calendar.DAY_OF_MONTH) + " " +
                     RIGHT_CALENDAR.get(Calendar.YEAR);
             rightTime.setText(dateString);
@@ -450,14 +439,14 @@ public class AccountBookListViewActivity extends BaseActivity
             tagImage.setImageResource(R.drawable.tags_icon);
             tagName.setText(mContext.getResources().getString(R.string.any));
         } else {
-            tagImage.setImageDrawable(CoCoinUtil.GetTagIconDrawable(TAG_ID));
-            tagName.setText(CoCoinUtil.GetTagName(TAG_ID));
+            tagImage.setImageDrawable(HaStarUtil.GetTagIconDrawable(TAG_ID));
+            tagName.setText(HaStarUtil.GetTagName(TAG_ID));
         }
     }
 
     private void changeTitleSlider() {
         titleExpense = (TextView) findViewById(R.id.title_expense);
-        titleExpense.setText(CoCoinUtil.GetInMoney((int) (double) RecordManager.getInstance(mContext).SELECTED_SUM));
+        titleExpense.setText(HaStarUtil.GetInMoney((int) (double) RecordManager.getInstance(mContext).SELECTED_SUM));
 
         titleSum = (TextView) findViewById(R.id.title_sum);
         titleSum.setText(RecordManager.getInstance(mContext).SELECTED_RECORDS.size() + "'s");
@@ -467,7 +456,7 @@ public class AccountBookListViewActivity extends BaseActivity
 //        if (CoCoinFragmentManager.numberCustomTitleSliderView != null)
 //            CoCoinFragmentManager.numberCustomTitleSliderView.setTitle(RecordManager.getInstance(CoCoinApplication.getAppContext()).SELECTED_RECORDS.size() + "'s");
 //        if (CoCoinFragmentManager.expenseCustomTitleSliderView != null)
-//            CoCoinFragmentManager.expenseCustomTitleSliderView.setTitle(CoCoinUtil.GetInMoney((int)(double)RecordManager.getInstance(CoCoinApplication.getAppContext()).SELECTED_SUM));
+//            CoCoinFragmentManager.expenseCustomTitleSliderView.setTitle(HaStarUtil.GetInMoney((int)(double)RecordManager.getInstance(CoCoinApplication.getAppContext()).SELECTED_SUM));
 //
 //        titleSlider.startAutoCycle();
     }
@@ -488,15 +477,15 @@ public class AccountBookListViewActivity extends BaseActivity
         String subTitle;
         double spend = RecordManager.SELECTED_RECORDS.get(position).getMoney();
         int tagId = RecordManager.SELECTED_RECORDS.get(position).getTag();
-        if ("zh".equals(CoCoinUtil.GetLanguage())) {
-            subTitle = CoCoinUtil.GetSpendString((int) spend) +
-                    "于" + CoCoinUtil.GetTagName(tagId);
+        if ("zh".equals(HaStarUtil.GetLanguage())) {
+            subTitle = HaStarUtil.GetSpendString((int) spend) +
+                    "于" + HaStarUtil.GetTagName(tagId);
         } else {
             subTitle = "Spend " + (int) spend +
-                    "in " + CoCoinUtil.GetTagName(tagId);
+                    "in " + HaStarUtil.GetTagName(tagId);
         }
         dialog = new MaterialDialog.Builder(mContext)
-                .icon(CoCoinUtil.GetTagIconDrawable(RecordManager.SELECTED_RECORDS.get(position).getTag()))
+                .icon(HaStarUtil.GetTagIconDrawable(RecordManager.SELECTED_RECORDS.get(position).getTag()))
                 .limitIconToDefaultSize()
                 .title(subTitle)
                 .customView(R.layout.dialog_a_record, true)
@@ -662,21 +651,21 @@ public class AccountBookListViewActivity extends BaseActivity
                         .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                         .position(Snackbar.SnackbarPosition.BOTTOM)
                         .margin(15, 15)
-                        .backgroundDrawable(CoCoinUtil.GetSnackBarBackground(-3))
+                        .backgroundDrawable(HaStarUtil.GetSnackBarBackground(-3))
                         .text(mContext.getResources().getString(R.string.deleting))
-                        .textTypeface(CoCoinUtil.GetTypeface())
+                        .textTypeface(HaStarUtil.GetTypeface())
                         .textColor(Color.WHITE)
-                        .actionLabelTypeface(CoCoinUtil.GetTypeface())
+                        .actionLabelTypeface(HaStarUtil.GetTypeface())
                         .actionLabel(mContext.getResources()
                                 .getString(R.string.undo))
                         .actionColor(Color.WHITE)
                         .actionListener(new ActionClickListener() {
                             @Override
                             public void onActionClicked(Snackbar snackbar) {
-                                RecordManager.SELECTED_RECORDS.add(lastPosition, CoCoinUtil.backupCoCoinRecord);
-                                RecordManager.SELECTED_SUM += CoCoinUtil.backupCoCoinRecord.getMoney();
+                                RecordManager.SELECTED_RECORDS.add(lastPosition, HaStarUtil.backupCoCoinRecord);
+                                RecordManager.SELECTED_SUM += HaStarUtil.backupCoCoinRecord.getMoney();
                                 changeTitleSlider();
-                                CoCoinUtil.backupCoCoinRecord = null;
+                                HaStarUtil.backupCoCoinRecord = null;
                                 LinearLayoutManager linearLayoutManager
                                         = (LinearLayoutManager) recyclerView.getLayoutManager();
                                 int firstVisiblePosition = linearLayoutManager
@@ -718,26 +707,26 @@ public class AccountBookListViewActivity extends BaseActivity
 
                             @Override
                             public void onDismiss(Snackbar snackbar) {
-                                if (CoCoinUtil.backupCoCoinRecord != null) {
-                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+                                if (HaStarUtil.backupCoCoinRecord != null) {
+                                    RecordManager.deleteRecord(HaStarUtil.backupCoCoinRecord, true);
                                 }
-                                CoCoinUtil.backupCoCoinRecord = null;
+                                HaStarUtil.backupCoCoinRecord = null;
                             }
 
                             @Override
                             public void onDismissByReplace(Snackbar snackbar) {
-                                if (CoCoinUtil.backupCoCoinRecord != null) {
-                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+                                if (HaStarUtil.backupCoCoinRecord != null) {
+                                    RecordManager.deleteRecord(HaStarUtil.backupCoCoinRecord, true);
                                 }
-                                CoCoinUtil.backupCoCoinRecord = null;
+                                HaStarUtil.backupCoCoinRecord = null;
                             }
 
                             @Override
                             public void onDismissed(Snackbar snackbar) {
-                                if (CoCoinUtil.backupCoCoinRecord != null) {
-                                    RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+                                if (HaStarUtil.backupCoCoinRecord != null) {
+                                    RecordManager.deleteRecord(HaStarUtil.backupCoCoinRecord, true);
                                 }
-                                CoCoinUtil.backupCoCoinRecord = null;
+                                HaStarUtil.backupCoCoinRecord = null;
                             }
                         });
         SnackbarManager.show(snackbar);
@@ -814,10 +803,10 @@ public class AccountBookListViewActivity extends BaseActivity
             SettingManager.getInstance().setTodayViewMonthExpenseShouldChange(true);
         }
 
-        if (CoCoinUtil.backupCoCoinRecord != null) {
-            RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+        if (HaStarUtil.backupCoCoinRecord != null) {
+            RecordManager.deleteRecord(HaStarUtil.backupCoCoinRecord, true);
         }
-        CoCoinUtil.backupCoCoinRecord = null;
+        HaStarUtil.backupCoCoinRecord = null;
 
         super.finish();
     }
@@ -867,8 +856,8 @@ public class AccountBookListViewActivity extends BaseActivity
                 setExpense();
                 break;
             case R.id.no_expense:
-                LEFT_MONEY = CoCoinUtil.INPUT_MIN_EXPENSE;
-                RIGHT_MONEY = CoCoinUtil.INPUT_MAX_EXPENSE;
+                LEFT_MONEY = HaStarUtil.INPUT_MIN_EXPENSE;
+                RIGHT_MONEY = HaStarUtil.INPUT_MAX_EXPENSE;
                 setConditions();
                 break;
             case R.id.select_time:
@@ -904,12 +893,12 @@ public class AccountBookListViewActivity extends BaseActivity
                 .positiveText(R.string.ok)
                 .negativeText(R.string.cancel)
                 .inputType(InputType.TYPE_CLASS_NUMBER)
-                .input("≥" + (int) (double) CoCoinUtil.INPUT_MIN_EXPENSE, "", new MaterialDialog.InputCallback() {
+                .input("≥" + (int) (double) HaStarUtil.INPUT_MIN_EXPENSE, "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         try {
                             inputNumber = Double.valueOf(String.valueOf(input));
-                            if (inputNumber < CoCoinUtil.INPUT_MIN_EXPENSE || inputNumber > CoCoinUtil.INPUT_MAX_EXPENSE)
+                            if (inputNumber < HaStarUtil.INPUT_MIN_EXPENSE || inputNumber > HaStarUtil.INPUT_MAX_EXPENSE)
                                 inputNumber = -1;
                         } catch (NumberFormatException n) {
                             inputNumber = -1;
@@ -931,12 +920,12 @@ public class AccountBookListViewActivity extends BaseActivity
                                     .positiveText(R.string.ok)
                                     .negativeText(R.string.cancel)
                                     .inputType(InputType.TYPE_CLASS_NUMBER)
-                                    .input("≤" + (int) (double) CoCoinUtil.INPUT_MAX_EXPENSE, "", new MaterialDialog.InputCallback() {
+                                    .input("≤" + (int) (double) HaStarUtil.INPUT_MAX_EXPENSE, "", new MaterialDialog.InputCallback() {
                                         @Override
                                         public void onInput(MaterialDialog dialog, CharSequence input) {
                                             try {
                                                 inputNumber = Double.valueOf(String.valueOf(input));
-                                                if (inputNumber < CoCoinUtil.INPUT_MIN_EXPENSE || inputNumber > CoCoinUtil.INPUT_MAX_EXPENSE)
+                                                if (inputNumber < HaStarUtil.INPUT_MIN_EXPENSE || inputNumber > HaStarUtil.INPUT_MAX_EXPENSE)
                                                     inputNumber = -1;
                                             } catch (NumberFormatException n) {
                                                 inputNumber = -1;
@@ -1038,8 +1027,8 @@ public class AccountBookListViewActivity extends BaseActivity
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 tagSelectDialog.dismiss();
                 TAG_ID = RecordManager.getInstance(mContext).TAGS.get(position + 2).getId();
-                tagImage.setImageDrawable(CoCoinUtil.GetTagIconDrawable(TAG_ID));
-                tagName.setText(CoCoinUtil.GetTagName(TAG_ID));
+                tagImage.setImageDrawable(HaStarUtil.GetTagIconDrawable(TAG_ID));
+                tagName.setText(HaStarUtil.GetTagName(TAG_ID));
             }
         });
     }

@@ -54,19 +54,6 @@ public class TagSettingActivity extends BaseActivity {
 
         mContext = this;
 
-        int currentapiVersion = Build.VERSION.SDK_INT;
-
-        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
-            // Do something for lollipop and above versions
-            Window window = this.getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ContextCompat.getColor(mContext, R.color.statusBarColor));
-            }
-        } else{
-            // do something for phones running an SDK before lollipop
-        }
 
         //noinspection ConstantConditions
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);

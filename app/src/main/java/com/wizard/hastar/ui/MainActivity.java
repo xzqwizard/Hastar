@@ -1,21 +1,26 @@
 package com.wizard.hastar.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.v4.app.FragmentActivity;
+import android.os.Handler;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.main_card_view.CardAdapter;
 import com.wizard.hastar.adapter.main_card_view.CardScaleHelper;
 import com.wizard.hastar.base.BaseActivity;
+import com.wizard.hastar.ui.money_manager.activity.ShowActivity;
+import com.wizard.hastar.ui.money_manager.util.RecordManager;
+import com.wizard.hastar.ui.money_manager.util.SettingManager;
 import com.wizard.hastar.util.BlurBitmapUtils;
+import com.wizard.hastar.util.HaStarUtil;
+import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.util.ViewSwitchUtils;
 
 import java.util.ArrayList;
@@ -30,11 +35,30 @@ public class MainActivity extends BaseActivity {
     private Runnable mBlurRunnable;
     private int mLastPos = -1;
 
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RecordManager.getInstance(this);
         init();
+        if (SettingManager.getInstance().getFirstTime()) {
+            //TODO
+            Intent intent = new Intent(this, ShowActivity.class);
+            startActivity(intent);
+        }
+
+        if (SettingManager.getInstance().getShowMainActivityGuide()) {
+            boolean wrapInScrollView = true;
+            new MaterialDialog.Builder(this)
+                    .title(R.string.guide)
+                    .typeface(HaStarUtil.GetTypeface(), HaStarUtil.GetTypeface())
+                    .customView(R.layout.main_activity_guide, wrapInScrollView)
+                    .positiveText(R.string.ok)
+                    .show();
+            SettingManager.getInstance().setShowMainActivityGuide(false);
+        }
     }
 
     private void init() {
@@ -100,5 +124,22 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        ToastUtil.displayShortToast(this, "再点一次我就走");
+        doubleBackToExitPressedOnce = true;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

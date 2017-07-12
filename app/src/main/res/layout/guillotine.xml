@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="CoCoin"
+            android:text="HaStar"
             android:textColor="#ffffff"
             android:textSize="25sp" />
 

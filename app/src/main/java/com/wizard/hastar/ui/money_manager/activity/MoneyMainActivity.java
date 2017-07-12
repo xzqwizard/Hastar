@@ -10,9 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -20,14 +18,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.daimajia.androidanimations.library.Techniques;
@@ -43,7 +38,7 @@ import com.wizard.hastar.ui.money_manager.fragment.TagChooseFragment;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.MyGridView;
 import com.wizard.hastar.widget.ScrollableViewPager;
@@ -108,7 +103,6 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
     private final int PRESS_AGAIN_TO_EXIT = 6;
     private final int WELCOME_BACK = 7;
 
-    boolean doubleBackToExitPressedOnce = false;
 
     private Toolbar guillotineToolBar;
 
@@ -136,7 +130,7 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
         sensorManager.registerListener(listener, accelerometerSensor, SensorManager.SENSOR_DELAY_GAME);
 
         toolBarTitle = (TextView) findViewById(R.id.guillotine_title);
-        toolBarTitle.setTypeface(CoCoinUtil.typefaceLatoLight);
+        toolBarTitle.setTypeface(HaStarUtil.typefaceLatoLight);
         toolBarTitle.setText(SettingManager.getInstance().getAccountBookName());
 
 // edit viewpager///////////////////////////////////////////////////////////////////////////////////
@@ -211,7 +205,7 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
         guillotineToolBar = (Toolbar) guillotineMenu.findViewById(R.id.toolbar);
 
         menuToolBarTitle = (TextView) guillotineMenu.findViewById(R.id.guillotine_title);
-        menuToolBarTitle.setTypeface(CoCoinUtil.typefaceLatoLight);
+        menuToolBarTitle.setTypeface(HaStarUtil.typefaceLatoLight);
         menuToolBarTitle.setText(SettingManager.getInstance().getAccountBookName());
 
         radioButton0 = (RadioButton) guillotineMenu.findViewById(R.id.radio_button_0);
@@ -221,7 +215,7 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
 
         passwordTip = (TextView) guillotineMenu.findViewById(R.id.password_tip);
         passwordTip.setText(mContext.getResources().getString(R.string.password_tip));
-        passwordTip.setTypeface(CoCoinUtil.typefaceLatoLight);
+        passwordTip.setTypeface(HaStarUtil.typefaceLatoLight);
 
         radioButtonLy = (LinearLayout) guillotineMenu.findViewById(R.id.radio_button_ly);
 
@@ -262,22 +256,6 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
             }
         });
 
-        if (SettingManager.getInstance().getFirstTime()) {
-            //TODO
-            Intent intent = new Intent(mContext, ShowActivity.class);
-            startActivity(intent);
-        }
-
-        if (SettingManager.getInstance().getShowMainActivityGuide()) {
-            boolean wrapInScrollView = true;
-            new MaterialDialog.Builder(this)
-                    .title(R.string.guide)
-                    .typeface(CoCoinUtil.GetTypeface(), CoCoinUtil.GetTypeface())
-                    .customView(R.layout.main_activity_guide, wrapInScrollView)
-                    .positiveText(R.string.ok)
-                    .show();
-            SettingManager.getInstance().setShowMainActivityGuide(false);
-        }
     }
 
     private AdapterView.OnItemLongClickListener gridViewLongClickListener
@@ -369,19 +347,19 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
         if (editViewPager.getCurrentItem() == 1) return;
         if (!isPassword) {
             if (FragmentManager.mainActivityEditMoneyFragment.getNumberText().toString().equals("0")
-                    && !CoCoinUtil.ClickButtonCommit(position)) {
-                if (CoCoinUtil.ClickButtonDelete(position)
-                        || CoCoinUtil.ClickButtonIsZero(position)) {
+                    && !HaStarUtil.ClickButtonCommit(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)
+                        || HaStarUtil.ClickButtonIsZero(position)) {
 
                 } else {
-                    FragmentManager.mainActivityEditMoneyFragment.setNumberText(CoCoinUtil.BUTTONS[position]);
+                    FragmentManager.mainActivityEditMoneyFragment.setNumberText(HaStarUtil.BUTTONS[position]);
                 }
             } else {
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)) {
                     if (longClick) {
                         FragmentManager.mainActivityEditMoneyFragment.setNumberText("0");
                         FragmentManager.mainActivityEditMoneyFragment.setHelpText(
-                                CoCoinUtil.FLOATINGLABELS[FragmentManager.mainActivityEditMoneyFragment
+                                HaStarUtil.FLOATINGLABELS[FragmentManager.mainActivityEditMoneyFragment
                                         .getNumberText().toString().length()]);
                     } else {
                         FragmentManager.mainActivityEditMoneyFragment.setNumberText(
@@ -394,19 +372,25 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
                             FragmentManager.mainActivityEditMoneyFragment.setHelpText(" ");
                         }
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
-                    commit();
+                } else if (HaStarUtil.ClickButtonCommit(position)) {
+                    if (SettingManager.getInstance().getIsForbidden()) {
+                        ToastUtil.displayShortToast(this, "已超上限，无法记录");
+                        YoYo.with(Techniques.Shake).duration(666).playOn(editViewPager);
+                        FragmentManager.mainActivityEditMoneyFragment.setNumberText("0");
+                    } else {
+                        commit();
+                    }
                 } else {
                     FragmentManager.mainActivityEditMoneyFragment.setNumberText(
                             FragmentManager.mainActivityEditMoneyFragment.getNumberText().toString()
-                                    + CoCoinUtil.BUTTONS[position]);
+                                    + HaStarUtil.BUTTONS[position]);
                 }
             }
             FragmentManager.mainActivityEditMoneyFragment
-                    .setHelpText(CoCoinUtil.FLOATINGLABELS[
+                    .setHelpText(HaStarUtil.FLOATINGLABELS[
                             FragmentManager.mainActivityEditMoneyFragment.getNumberText().toString().length()]);
         } else {
-            if (CoCoinUtil.ClickButtonDelete(position)) {
+            if (HaStarUtil.ClickButtonDelete(position)) {
                 if (longClick) {
                     radioButton0.setChecked(false);
                     radioButton1.setChecked(false);
@@ -429,7 +413,7 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
                         inputPassword = inputPassword.substring(0, inputPassword.length() - 1);
                     }
                 }
-            } else if (CoCoinUtil.ClickButtonCommit(position)) {
+            } else if (HaStarUtil.ClickButtonCommit(position)) {
             } else {
                 if (statusButton.getIconState() == MaterialMenuDrawable.IconState.X) {
                     statusButton.animateIconState(MaterialMenuDrawable.IconState.ARROW);
@@ -447,7 +431,7 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
                     radioButton3.setChecked(true);
                 }
                 if (inputPassword.length() < 4) {
-                    inputPassword += CoCoinUtil.BUTTONS[position];
+                    inputPassword += HaStarUtil.BUTTONS[position];
                 }
             }
             checkPassword();
@@ -472,9 +456,6 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
             if (saveId == -1) {
 
             } else {
-//                if (!superToast.isShowing()) {
-//                    changeColor();
-//                }
                 FragmentManager.mainActivityEditMoneyFragment.setTagImage(R.color.transparent);
                 FragmentManager.mainActivityEditMoneyFragment.setTagName("");
             }
@@ -506,9 +487,6 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
                 break;
             case SAVE_FAILED_TOAST:
                 break;
-            case PRESS_AGAIN_TO_EXIT:
-                ToastUtil.displayShortToast(this, "再点一次我就走");
-                break;
             case WELCOME_BACK:
                 ToastUtil.displayShortToast(this, "欢迎回来！" + "\n" + SettingManager.getInstance().getUserName());
             default:
@@ -524,35 +502,16 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
                 && RecordManager.getCurrentMonthExpense()
                 >= SettingManager.getInstance().getMonthWarning();
 
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-
-        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
-            // Do something for lollipop and above versions
-            Window window = this.getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-            if (shouldChange) {
-                window.setStatusBarColor(
-                        CoCoinUtil.getInstance().getDeeperColor(SettingManager.getInstance().getRemindColor()));
-            } else {
-                window.setStatusBarColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-            }
-
-        } else {
-            // do something for phones running an SDK before lollipop
-        }
-
         if (shouldChange) {
             root.setBackgroundColor(SettingManager.getInstance().getRemindColor());
             toolbar.setBackgroundColor(SettingManager.getInstance().getRemindColor());
             guillotineColorLy.setBackgroundColor(SettingManager.getInstance().getRemindColor());
             guillotineToolBar.setBackgroundColor(SettingManager.getInstance().getRemindColor());
         } else {
-            root.setBackgroundColor(CoCoinUtil.getInstance().MY_BLUE);
-            toolbar.setBackgroundColor(CoCoinUtil.getInstance().MY_BLUE);
-            guillotineColorLy.setBackgroundColor(CoCoinUtil.getInstance().MY_BLUE);
-            guillotineToolBar.setBackgroundColor(CoCoinUtil.getInstance().MY_BLUE);
+            root.setBackgroundColor(HaStarUtil.getInstance().MY_BLUE);
+            toolbar.setBackgroundColor(HaStarUtil.getInstance().MY_BLUE);
+            guillotineColorLy.setBackgroundColor(HaStarUtil.getInstance().MY_BLUE);
+            guillotineToolBar.setBackgroundColor(HaStarUtil.getInstance().MY_BLUE);
         }
         if (FragmentManager.mainActivityEditMoneyFragment != null)
             FragmentManager.mainActivityEditMoneyFragment.setEditColor(shouldChange);
@@ -587,8 +546,8 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
                     }
                 } else {
                     if (editViewPager.getCurrentItem() == 0
-                            && CoCoinUtil.isPointInsideView(x2, y2, editViewPager)
-                            && CoCoinUtil.GetScreenWidth(mContext) - x2 <= 60) {
+                            && HaStarUtil.isPointInsideView(x2, y2, editViewPager)
+                            && HaStarUtil.GetScreenWidth(mContext) - x2 <= 60) {
                         return true;
                     }
                 }
@@ -605,22 +564,7 @@ public class MoneyMainActivity extends BaseActivity implements TagChooseFragment
             animation.close();
             return;
         }
-
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        showToast(PRESS_AGAIN_TO_EXIT);
-
-        doubleBackToExitPressedOnce = true;
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+        super.onBackPressed();
     }
 
     @Override

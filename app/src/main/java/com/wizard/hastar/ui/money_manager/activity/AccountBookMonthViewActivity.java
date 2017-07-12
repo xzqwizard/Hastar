@@ -1,22 +1,16 @@
 package com.wizard.hastar.ui.money_manager.activity;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,23 +21,17 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.DrawerMonthViewRecyclerViewAdapter;
 import com.wizard.hastar.adapter.MonthViewFragmentAdapter;
 import com.wizard.hastar.base.BaseActivity;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.CustomSliderView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -76,18 +64,18 @@ public class AccountBookMonthViewActivity extends BaseActivity {
 
         userName = (TextView) findViewById(R.id.user_name);
         userEmail = (TextView) findViewById(R.id.user_email);
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
+        userName.setTypeface(HaStarUtil.typefaceLatoRegular);
+        userEmail.setTypeface(HaStarUtil.typefaceLatoLight);
 
 
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
 
         View view = mViewPager.getRootView();
         TextView title = (TextView) view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
+        title.setTypeface(HaStarUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.GetTypeface(), Typeface.NORMAL);
+        mViewPager.getPagerTitleStrip().setTypeface(HaStarUtil.GetTypeface(), Typeface.NORMAL);
 
         setTitle("");
 
@@ -129,8 +117,8 @@ public class AccountBookMonthViewActivity extends BaseActivity {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(RecordManager.TAGS.get(page).getId()),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        HaStarUtil.GetTagColor(RecordManager.TAGS.get(page).getId()),
+                        HaStarUtil.GetTagDrawable(-3)
                 );
             }
         });
@@ -169,7 +157,7 @@ public class AccountBookMonthViewActivity extends BaseActivity {
 
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
-        HashMap<String, Integer> urls = CoCoinUtil.GetDrawerTopUrl();
+        HashMap<String, Integer> urls = HaStarUtil.GetDrawerTopUrl();
 
         for (String name : urls.keySet()) {
             CustomSliderView customSliderView = new CustomSliderView(this);

@@ -7,11 +7,10 @@ import android.util.Log;
 
 import com.wizard.hastar.BuildConfig;
 import com.wizard.hastar.MyApplication;
-import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.db.DB;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.model.Tag;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 
 import java.io.IOException;
@@ -209,37 +208,6 @@ public class RecordManager {
         return coCoinRecord.getId();
     }
 
-//    public static int deleteTag(int id) {
-//        int deletedId = -1;
-//        if (BuildConfig.DEBUG) Log.d("CoCoin",
-//                "Manager: Delete tag: " + "Tag(id = " + id + ", deletedId = " + deletedId + ")");
-//        boolean tagReference = false;
-//        for (CoCoinRecord coCoinRecord : RECORDS) {
-//            if (coCoinRecord.getTag() == id) {
-//                tagReference = true;
-//                break;
-//            }
-//        }
-//        if (tagReference) {
-//            return DELETE_TAG_ERROR_TAG_REFERENCE;
-//        }
-//        deletedId = db.deleteTag(id);
-//        if (deletedId == -1) {
-//            if (BuildConfig.DEBUG) Log.d("CoCoin", "Delete the above tag FAIL!");
-//            return DELETE_TAG_ERROR_DATABASE_ERROR;
-//        } else {
-//            if (BuildConfig.DEBUG) Log.d("CoCoin", "Delete the above tag SUCCESSFULLY!");
-//            for (Tag tag : TAGS) {
-//                if (tag.getId() == deletedId) {
-//                    TAGS.remove(tag);
-//                    break;
-//                }
-//            }
-//            TAG_NAMES.remove(id);
-//            sortTAGS();
-//        }
-//        return deletedId;
-//    }
 
     private static int p;
 
@@ -297,7 +265,7 @@ public class RecordManager {
 
     public static int getCurrentMonthExpense() {
         Calendar calendar = Calendar.getInstance();
-        Calendar left = CoCoinUtil.GetThisMonthLeftRange(calendar);
+        Calendar left = HaStarUtil.GetThisMonthLeftRange(calendar);
         int monthSum = 0;
         for (int i = RECORDS.size() - 1; i >= 0; i--) {
             if (RECORDS.get(i).getCalendar().before(left)) break;
@@ -349,7 +317,7 @@ public class RecordManager {
     public static List<Record> queryRecordByRemark(String remark) {
         List<Record> list = new LinkedList<>();
         for (Record coCoinRecord : RECORDS) {
-            if (CoCoinUtil.IsStringRelation(coCoinRecord.getRemark(), remark)) {
+            if (HaStarUtil.IsStringRelation(coCoinRecord.getRemark(), remark)) {
                 list.add(coCoinRecord);
             }
         }

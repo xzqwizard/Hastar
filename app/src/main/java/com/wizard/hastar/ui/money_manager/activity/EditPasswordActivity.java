@@ -1,15 +1,12 @@
 package com.wizard.hastar.ui.money_manager.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +27,7 @@ import com.wizard.hastar.adapter.PasswordChangeFragmentAdapter;
 import com.wizard.hastar.base.BaseActivity;
 import com.wizard.hastar.ui.money_manager.fragment.FragmentManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.MyGridView;
 
@@ -74,22 +71,15 @@ public class EditPasswordActivity extends BaseActivity {
 
         mContext = this;
 
-        int currentapiVersion = Build.VERSION.SDK_INT;
-
-        if (currentapiVersion >= Build.VERSION_CODES.LOLLIPOP) {
-            // Do something for lollipop and above versions
-            Window window = this.getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.setStatusBarColor(ContextCompat.getColor(mContext, R.color.statusBarColor));
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        //设置viewpager不能滑动
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;  //修改为true
             }
-        } else{
-            // do something for phones running an SDK before lollipop
-        }
 
-        viewPager = (ViewPager)findViewById(R.id.viewpager);
-
+        });
         try {
             Interpolator sInterpolator = new AccelerateInterpolator();
             Field mScroller;
@@ -113,7 +103,7 @@ public class EditPasswordActivity extends BaseActivity {
 
         viewPager.setAdapter(adapter);
 
-        myGridView = (MyGridView)findViewById(R.id.gridview);
+        myGridView = (MyGridView) findViewById(R.id.gridview);
         myGridViewAdapter = new PasswordChangeButtonGridViewAdapter(this);
         myGridView.setAdapter(myGridViewAdapter);
 
@@ -132,7 +122,7 @@ public class EditPasswordActivity extends BaseActivity {
                     }
                 });
 
-        back = (MaterialIconView)findViewById(R.id.back);
+        back = (MaterialIconView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,8 +131,8 @@ public class EditPasswordActivity extends BaseActivity {
         });
 
 
-        title = (TextView)findViewById(R.id.title);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
+        title = (TextView) findViewById(R.id.title);
+        title.setTypeface(HaStarUtil.typefaceLatoLight);
         if (SettingManager.getInstance().getFirstTime()) {
             title.setText(mContext.getResources().getString(R.string.app_name));
         } else {
@@ -162,10 +152,6 @@ public class EditPasswordActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void finish() {;
-        super.finish();
-    }
 
     private AdapterView.OnItemClickListener gridViewClickListener
             = new AdapterView.OnItemClickListener() {
@@ -187,7 +173,7 @@ public class EditPasswordActivity extends BaseActivity {
     private void buttonClickOperation(boolean longClick, int position) {
         switch (CURRENT_STATE) {
             case VERIFY_STATE:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)) {
                     if (longClick) {
                         FragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         oldPassword = "";
@@ -197,12 +183,12 @@ public class EditPasswordActivity extends BaseActivity {
                         if (oldPassword.length() != 0)
                             oldPassword = oldPassword.substring(0, oldPassword.length() - 1);
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (HaStarUtil.ClickButtonCommit(position)) {
 
                 } else {
                     FragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(oldPassword.length());
-                    oldPassword += CoCoinUtil.BUTTONS[position];
+                    oldPassword += HaStarUtil.BUTTONS[position];
                     if (oldPassword.length() == 4) {
                         if (oldPassword.equals(SettingManager.getInstance().getPassword())) {
                             // old password correct
@@ -214,14 +200,14 @@ public class EditPasswordActivity extends BaseActivity {
                             // old password wrong
                             FragmentManager.passwordChangeFragment[CURRENT_STATE]
                                     .clear(4);
-                            ToastUtil.displayShortToast(mContext,"嗯……错了");
+                            ToastUtil.displayShortToast(mContext, "嗯……错了");
                             oldPassword = "";
                         }
                     }
                 }
                 break;
             case NEW_PASSWORD:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)) {
                     if (longClick) {
                         FragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         newPassword = "";
@@ -231,12 +217,12 @@ public class EditPasswordActivity extends BaseActivity {
                         if (newPassword.length() != 0)
                             newPassword = newPassword.substring(0, newPassword.length() - 1);
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (HaStarUtil.ClickButtonCommit(position)) {
 
                 } else {
                     FragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(newPassword.length());
-                    newPassword += CoCoinUtil.BUTTONS[position];
+                    newPassword += HaStarUtil.BUTTONS[position];
                     if (newPassword.length() == 4) {
                         // finish the new password input
                         CURRENT_STATE = PASSWORD_AGAIN;
@@ -245,7 +231,7 @@ public class EditPasswordActivity extends BaseActivity {
                 }
                 break;
             case PASSWORD_AGAIN:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)) {
                     if (longClick) {
                         FragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         againPassword = "";
@@ -255,17 +241,17 @@ public class EditPasswordActivity extends BaseActivity {
                         if (againPassword.length() != 0)
                             againPassword = againPassword.substring(0, againPassword.length() - 1);
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (HaStarUtil.ClickButtonCommit(position)) {
 
                 } else {
                     FragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(againPassword.length());
-                    againPassword += CoCoinUtil.BUTTONS[position];
+                    againPassword += HaStarUtil.BUTTONS[position];
                     if (againPassword.length() == 4) {
                         // if the password again is equal to the new password
                         if (againPassword.equals(newPassword)) {
                             CURRENT_STATE = -1;
-                            ToastUtil.displayShortToast(mContext,"这密码还不错");
+                            ToastUtil.displayShortToast(mContext, "这密码还不错");
                             SettingManager.getInstance().setPassword(newPassword);
                             if (SettingManager.getInstance().getLoggenOn()) {
                                 //TODO
@@ -284,7 +270,7 @@ public class EditPasswordActivity extends BaseActivity {
                             viewPager.setCurrentItem(NEW_PASSWORD, true);
                             newPassword = "";
                             againPassword = "";
-                            ToastUtil.displayShortToast(mContext,"两次密码不一致！");
+                            ToastUtil.displayShortToast(mContext, "两次密码不一致！");
                         }
                     }
                 }
@@ -294,33 +280,6 @@ public class EditPasswordActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                x1 = ev.getX();
-                y1 = ev.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                x2 = ev.getX();
-                y2 = ev.getY();
-                if (Math.abs(x1 - x2) > 20) {
-                    return true;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = ev.getX();
-                y2 = ev.getY();
-                if (Math.abs(x1 - x2) > 20) {
-                    return true;
-                }
-                break;
-            default:
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
 
     @Override
     protected void onDestroy() {

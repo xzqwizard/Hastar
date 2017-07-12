@@ -19,7 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.RecordCheckDialogRecyclerViewAdapter;
 import com.wizard.hastar.ui.money_manager.model.Record;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
         TextView title = new TextView(mContext);
         title.setHeight(120);
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
+        title.setTypeface(HaStarUtil.typefaceLatoLight);
         title.setText(this.title);
         alert.setCustomTitle(title);
 
@@ -80,7 +80,7 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
             @Override
             public void onShow(DialogInterface dialog) {
                 Button btnPositive = alert.getButton(Dialog.BUTTON_POSITIVE);
-                btnPositive.setTypeface(CoCoinUtil.typefaceLatoLight);
+                btnPositive.setTypeface(HaStarUtil.typefaceLatoLight);
             }
         });
 
@@ -104,15 +104,15 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
         String subTitle;
         double spend = list.get(position).getMoney();
         int tagId = list.get(position).getTag();
-        if ("zh".equals(CoCoinUtil.GetLanguage())) {
-            subTitle = CoCoinUtil.GetSpendString((int)spend) +
-                    "于" + CoCoinUtil.GetTagName(tagId);
+        if ("zh".equals(HaStarUtil.GetLanguage())) {
+            subTitle = HaStarUtil.GetSpendString((int)spend) +
+                    "于" + HaStarUtil.GetTagName(tagId);
         } else {
             subTitle = "Spend " + (int)spend +
-                    "in " + CoCoinUtil.GetTagName(tagId);
+                    "in " + HaStarUtil.GetTagName(tagId);
         }
         dialog = new MaterialDialog.Builder(mContext)
-                .icon(CoCoinUtil.GetTagIconDrawable(list.get(position).getTag()))
+                .icon(HaStarUtil.GetTagIconDrawable(list.get(position).getTag()))
                 .limitIconToDefaultSize()
                 .title(subTitle)
                 .customView(R.layout.dialog_a_record, true)
@@ -122,6 +122,6 @@ public class RecordCheckDialogFragment extends DialogFragment implements RecordC
         TextView remark = (TextView)dialogView.findViewById(R.id.remark);
         TextView date = (TextView)dialogView.findViewById(R.id.date);
         remark.setText(list.get(position).getRemark());
-        date.setText(CoCoinUtil.GetCalendarStringRecordCheckDialog(mContext, list.get(position).getCalendar()));
+        date.setText(HaStarUtil.GetCalendarStringRecordCheckDialog(mContext, list.get(position).getCalendar()));
     }
 }

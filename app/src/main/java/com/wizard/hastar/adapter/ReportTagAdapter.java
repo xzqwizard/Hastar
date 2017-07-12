@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.fragment.ReportViewFragment;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 
@@ -50,14 +50,14 @@ public class ReportTagAdapter extends BaseAdapter {
         TextView expense = (TextView)convertView.findViewById(R.id.tag_expense);
         TextView records = (TextView)convertView.findViewById(R.id.tag_sum);
 
-        name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        expense.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        name.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        expense.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        records.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
-        icon.setImageDrawable(CoCoinUtil.getInstance().GetTagIconDrawable((int)tagExpense.get(position + 1)[2]));
-        name.setText(CoCoinUtil.getInstance().GetTagName((int)tagExpense.get(position + 1)[2]) + CoCoinUtil.getInstance().GetPurePercentString(tagExpense.get(position + 1)[1] * 100));
-        expense.setText(CoCoinUtil.getInstance().GetInMoney((int)tagExpense.get(position + 1)[0]));
-        records.setText(CoCoinUtil.getInstance().GetInRecords((int)tagExpense.get(position + 1)[3]));
+        icon.setImageDrawable(HaStarUtil.getInstance().GetTagIconDrawable((int)tagExpense.get(position + 1)[2]));
+        name.setText(HaStarUtil.getInstance().GetTagName((int)tagExpense.get(position + 1)[2]) + HaStarUtil.getInstance().GetPurePercentString(tagExpense.get(position + 1)[1] * 100));
+        expense.setText(HaStarUtil.getInstance().GetInMoney((int)tagExpense.get(position + 1)[0]));
+        records.setText(HaStarUtil.getInstance().GetInRecords((int)tagExpense.get(position + 1)[3]));
 
         return convertView;
     }

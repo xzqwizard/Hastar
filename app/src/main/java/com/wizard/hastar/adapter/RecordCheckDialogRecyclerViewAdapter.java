@@ -12,7 +12,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,17 +54,17 @@ public class RecordCheckDialogRecyclerViewAdapter extends RecyclerView.Adapter<R
     @Override
     public void onBindViewHolder(viewHolder holder, final int position) {
         holder.imageView.setImageResource(
-                CoCoinUtil.GetTagIcon(coCoinRecords.get(position).getTag()));
+                HaStarUtil.GetTagIcon(coCoinRecords.get(position).getTag()));
         holder.date.setText(coCoinRecords.get(position).getCalendarString());
-        holder.date.setTypeface(CoCoinUtil.typefaceLatoLight);
-        holder.money.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.date.setTypeface(HaStarUtil.typefaceLatoLight);
+        holder.money.setTypeface(HaStarUtil.typefaceLatoLight);
         holder.money.setText(String.valueOf((int) coCoinRecords.get(position).getMoney()));
         holder.money.setTextColor(
-                CoCoinUtil.GetTagColorResource(RecordManager.TAGS.get(coCoinRecords.get(position).getTag()).getId()));
+                HaStarUtil.GetTagColorResource(RecordManager.TAGS.get(coCoinRecords.get(position).getTag()).getId()));
         holder.index.setText((position + 1) + "");
-        holder.index.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.index.setTypeface(HaStarUtil.typefaceLatoLight);
         holder.remark.setText(coCoinRecords.get(position).getRemark());
-        holder.remark.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.remark.setTypeface(HaStarUtil.typefaceLatoLight);
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

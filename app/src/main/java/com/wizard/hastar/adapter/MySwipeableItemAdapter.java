@@ -26,7 +26,7 @@ import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -147,16 +147,16 @@ public class MySwipeableItemAdapter
         int tPosition = records.size() - 1 - position;
         Record record = records.get(tPosition);
         holder.tagImage.setImageResource(
-                CoCoinUtil.GetTagIcon(record.getTag()));
+                HaStarUtil.GetTagIcon(record.getTag()));
         holder.date.setText(record.getCalendarString());
         holder.money.setText(String.valueOf((int) record.getMoney()));
-        holder.date.setTypeface(CoCoinUtil.typefaceLatoLight);
-        holder.money.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.date.setTypeface(HaStarUtil.typefaceLatoLight);
+        holder.money.setTypeface(HaStarUtil.typefaceLatoLight);
         holder.money.setTextColor(ContextCompat.getColor(MyApplication.getAppContext(), R.color.my_blue));
         holder.index.setText((position + 1) + "");
-        holder.index.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.index.setTypeface(HaStarUtil.typefaceLatoLight);
         holder.remark.setText(record.getRemark());
-        holder.remark.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.remark.setTypeface(HaStarUtil.typefaceLatoLight);
 
         // set background resource (target view ID: container)
         final int swipeState = holder.getSwipeStateFlags();
@@ -292,14 +292,14 @@ public class MySwipeableItemAdapter
         @Override
         protected void onPerformAction() {
             super.onPerformAction();
-            if (CoCoinUtil.backupCoCoinRecord != null) {
-                RecordManager.deleteRecord(CoCoinUtil.backupCoCoinRecord, true);
+            if (HaStarUtil.backupCoCoinRecord != null) {
+                RecordManager.deleteRecord(HaStarUtil.backupCoCoinRecord, true);
             }
-            CoCoinUtil.backupCoCoinRecord = null;
-            CoCoinUtil.backupCoCoinRecord
+            HaStarUtil.backupCoCoinRecord = null;
+            HaStarUtil.backupCoCoinRecord
                     = RecordManager.SELECTED_RECORDS.get(RecordManager.SELECTED_RECORDS.size() - 1 - mPosition);
             RecordManager.SELECTED_RECORDS.remove(RecordManager.SELECTED_RECORDS.size() - 1 - mPosition);
-            RecordManager.SELECTED_SUM -= CoCoinUtil.backupCoCoinRecord.getMoney();
+            RecordManager.SELECTED_SUM -= HaStarUtil.backupCoCoinRecord.getMoney();
             onItemDeleteListener.onSelectSumChanged();
             mAdapter.notifyItemRemoved(mPosition);
         }

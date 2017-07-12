@@ -207,6 +207,7 @@
     <dimen name='d210'>210dp</dimen>
     <dimen name='d220'>220dp</dimen>
     <dimen name='d230'>230dp</dimen>
+    <dimen name='d260'>260dp</dimen>
     <dimen name='d280'>280dp</dimen>
     <dimen name='d300'>300dp</dimen>
     <dimen name='d320'>320dp</dimen>

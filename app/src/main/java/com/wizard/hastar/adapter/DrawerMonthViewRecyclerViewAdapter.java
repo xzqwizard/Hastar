@@ -10,14 +10,13 @@ import android.widget.TextView;
 import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 
 /**
  * Created by 伟平 on 2015/10/20.
@@ -101,17 +100,17 @@ public class DrawerMonthViewRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final viewHolder holder, final int position) {
-        holder.month.setText(CoCoinUtil.GetMonthShort(months.get(position) + 1));
-        holder.month.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        holder.month.setText(HaStarUtil.GetMonthShort(months.get(position) + 1));
+        holder.month.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         holder.year.setText(years.get(position) + "");
-        holder.year.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        holder.year.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
-        holder.sum.setText(CoCoinUtil.getInstance().GetInRecords(records.get(position)));
-        holder.sum.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        holder.sum.setText(HaStarUtil.getInstance().GetInRecords(records.get(position)));
+        holder.sum.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
-        holder.money.setText(CoCoinUtil.getInstance().GetInMoney((int) (double) (expenses.get(position))));
-        holder.money.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        holder.money.setText(HaStarUtil.getInstance().GetInMoney((int) (double) (expenses.get(position))));
+        holder.money.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
     }
 
     public class viewHolder extends RecyclerView.ViewHolder

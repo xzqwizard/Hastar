@@ -4,20 +4,18 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.CustomViewFragmentAdapter;
 import com.wizard.hastar.base.BaseActivity;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 public class AccountBookCustomViewActivity extends BaseActivity {
 
@@ -40,10 +38,10 @@ public class AccountBookCustomViewActivity extends BaseActivity {
 
         View view = mViewPager.getRootView();
         TextView title = (TextView)view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        title.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.GetTypeface(), Typeface.NORMAL);
+        mViewPager.getPagerTitleStrip().setTypeface(HaStarUtil.GetTypeface(), Typeface.NORMAL);
         mViewPager.getPagerTitleStrip().setVisibility(View.INVISIBLE);
 
         setTitle("");
@@ -82,8 +80,8 @@ public class AccountBookCustomViewActivity extends BaseActivity {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(-3),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        HaStarUtil.GetTagColor(-3),
+                        HaStarUtil.GetTagDrawable(-3)
                 );
             }
         });

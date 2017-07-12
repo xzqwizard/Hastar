@@ -14,7 +14,7 @@ public class SettingManager {
 
 // store value//////////////////////////////////////////////////////////////////////////////////////
 
-    // whether it is CoCoin's first time
+    // whether it is HaStar's first time
     private Boolean FIRST_TIME;
     // whether is logged on
     private Boolean LOGGED_ON;
@@ -112,7 +112,7 @@ public class SettingManager {
     // whether is able to be recorded when over the limit by default
     private final Boolean DEFAULT_IS_FORBIDDEN = false;
     // account bool name by default
-    private final String DEFAULT_ACCOUNT_BOOK_NAME = "CoCoin";
+    private final String DEFAULT_ACCOUNT_BOOK_NAME = "HaStar";
     // the password
     private final String DEFAULT_PASSWORD = "1234";
     // whether show picture in account book

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.wizard.hastar.ui.money_manager.fragment.MonthViewFragment;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,6 +72,6 @@ public class MonthViewFragmentAdapter extends FragmentStatePagerAdapter {
         if (IS_EMPTY) return "";
         int nowMonth = (startMonth + (monthNumber - position - 1)) % 12;
         int nowYear = startYear + (startMonth + (monthNumber - position - 1)) / 12;
-        return CoCoinUtil.GetMonthShort(nowMonth + 1) + " " + nowYear;
+        return HaStarUtil.GetMonthShort(nowMonth + 1) + " " + nowYear;
     }
 }

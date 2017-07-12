@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 /**
  * Created by 伟平 on 2015/11/10.
@@ -53,9 +53,9 @@ public class DrawerTagChooseGridViewAdapter extends BaseAdapter {
         }
 
         holder.tagImage.setImageResource(
-                CoCoinUtil.GetTagIcon(RecordManager.TAGS.get(position).getId()));
-        holder.tagName.setText(CoCoinUtil.GetTagName(RecordManager.TAGS.get(position).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.GetTypeface());
+                HaStarUtil.GetTagIcon(RecordManager.TAGS.get(position).getId()));
+        holder.tagName.setText(HaStarUtil.GetTagName(RecordManager.TAGS.get(position).getId()));
+        holder.tagName.setTypeface(HaStarUtil.GetTypeface());
 
         return convertView;
     }

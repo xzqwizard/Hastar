@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.fragment.ReportViewFragment;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -54,16 +54,16 @@ public class ReportDayAdapter extends BaseAdapter {
         TextView expense = (TextView)convertView.findViewById(R.id.month_expense);
         TextView records = (TextView)convertView.findViewById(R.id.month_sum);
 
-        icon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        expense.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        icon.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        name.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        expense.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        records.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         icon.setBackgroundResource(getBackgroundResource());
         icon.setText("" + ((int)dayExpense.get(position + 1)[2]));
-        name.setText(CoCoinUtil.getInstance().GetCalendarStringDayExpenseSort(MyApplication.getAppContext(), (int)dayExpense.get(position + 1)[0], (int)dayExpense.get(position + 1)[1] + 1, (int)dayExpense.get(position + 1)[2]) + CoCoinUtil.getInstance().GetPurePercentString(dayExpense.get(position + 1)[4] * 100));
-        expense.setText(CoCoinUtil.getInstance().GetInMoney((int) dayExpense.get(position + 1)[3]));
-        records.setText(CoCoinUtil.getInstance().GetInRecords((int) dayExpense.get(position + 1)[5]));
+        name.setText(HaStarUtil.getInstance().GetCalendarStringDayExpenseSort(MyApplication.getAppContext(), (int)dayExpense.get(position + 1)[0], (int)dayExpense.get(position + 1)[1] + 1, (int)dayExpense.get(position + 1)[2]) + HaStarUtil.getInstance().GetPurePercentString(dayExpense.get(position + 1)[4] * 100));
+        expense.setText(HaStarUtil.getInstance().GetInMoney((int) dayExpense.get(position + 1)[3]));
+        records.setText(HaStarUtil.getInstance().GetInRecords((int) dayExpense.get(position + 1)[5]));
 
         return convertView;
     }

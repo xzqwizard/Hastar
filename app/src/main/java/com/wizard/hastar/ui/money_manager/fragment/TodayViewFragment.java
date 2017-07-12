@@ -16,7 +16,7 @@ import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.TodayViewRecyclerViewAdapter;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,7 +89,7 @@ public class TodayViewFragment extends Fragment {
 
         switch (position) {
             case TODAY:
-                leftRange = CoCoinUtil.GetTodayLeftRange(now);
+                leftRange = HaStarUtil.GetTodayLeftRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -101,8 +101,8 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case YESTERDAY:
-                leftRange = CoCoinUtil.GetYesterdayLeftRange(now);
-                rightRange = CoCoinUtil.GetYesterdayRightRange(now);
+                leftRange = HaStarUtil.GetYesterdayLeftRange(now);
+                rightRange = HaStarUtil.GetYesterdayRightRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -115,7 +115,7 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case THIS_WEEK:
-                leftRange = CoCoinUtil.GetThisWeekLeftRange(now);
+                leftRange = HaStarUtil.GetThisWeekLeftRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -127,8 +127,8 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case LAST_WEEK:
-                leftRange = CoCoinUtil.GetLastWeekLeftRange(now);
-                rightRange = CoCoinUtil.GetLastWeekRightRange(now);
+                leftRange = HaStarUtil.GetLastWeekLeftRange(now);
+                rightRange = HaStarUtil.GetLastWeekRightRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -141,7 +141,7 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case THIS_MONTH:
-                leftRange = CoCoinUtil.GetThisMonthLeftRange(now);
+                leftRange = HaStarUtil.GetThisMonthLeftRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -153,8 +153,8 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case LAST_MONTH:
-                leftRange = CoCoinUtil.GetLastMonthLeftRange(now);
-                rightRange = CoCoinUtil.GetLastMonthRightRange(now);
+                leftRange = HaStarUtil.GetLastMonthLeftRange(now);
+                rightRange = HaStarUtil.GetLastMonthRightRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -167,7 +167,7 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case THIS_YEAR:
-                leftRange = CoCoinUtil.GetThisYearLeftRange(now);
+                leftRange = HaStarUtil.GetThisYearLeftRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;
@@ -179,8 +179,8 @@ public class TodayViewFragment extends Fragment {
                 }
                 break;
             case LAST_YEAR:
-                leftRange = CoCoinUtil.GetLastYearLeftRange(now);
-                rightRange = CoCoinUtil.GetLastYearRightRange(now);
+                leftRange = HaStarUtil.GetLastYearLeftRange(now);
+                rightRange = HaStarUtil.GetLastYearRightRange(now);
                 for (int i = recordManager.RECORDS.size() - 1; i >= 0; i--) {
                     if (recordManager.RECORDS.get(i).getCalendar().before(leftRange)) {
                         end = i + 1;

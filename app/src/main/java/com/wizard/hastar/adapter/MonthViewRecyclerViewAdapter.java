@@ -19,7 +19,7 @@ import com.wizard.hastar.ui.money_manager.fragment.RecordCheckDialogFragment;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
@@ -32,7 +32,6 @@ import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SelectedValue;
@@ -118,8 +117,8 @@ public class MonthViewRecyclerViewAdapter
             sliceValues = new ArrayList<>();
 
             // for this month
-            dateStringList.add(CoCoinUtil.GetMonthShort(nowMonth + 1) + " " + nowYear);
-            dateShownStringList.add(" in " + CoCoinUtil.MONTHS_SHORT[nowMonth + 1] + " " + nowYear);
+            dateStringList.add(HaStarUtil.GetMonthShort(nowMonth + 1) + " " + nowYear);
+            dateShownStringList.add(" in " + HaStarUtil.MONTHS_SHORT[nowMonth + 1] + " " + nowYear);
             selectedPositionList.add(0);
             for (int j = 2; j < recordManager.TAGS.size(); j++) {
                 TagExpanse.put(recordManager.TAGS.get(j).getId(), Double.valueOf(0));
@@ -135,7 +134,7 @@ public class MonthViewRecyclerViewAdapter
                 }
             }
 
-            TagExpanse = CoCoinUtil.SortTreeMapByValues(TagExpanse);
+            TagExpanse = HaStarUtil.SortTreeMapByValues(TagExpanse);
 
             tags = 0;
             for (Map.Entry<Integer, Double> entry : TagExpanse.entrySet()) {
@@ -144,7 +143,7 @@ public class MonthViewRecyclerViewAdapter
                     SliceValue sliceValue = new SliceValue(
                             (float) (double) entry.getValue(),
                             mContext.getResources().
-                                    getColor(CoCoinUtil.GetTagColorResource(entry.getKey())));
+                                    getColor(HaStarUtil.GetTagColorResource(entry.getKey())));
                     sliceValue.setLabel(String.valueOf(entry.getKey()));
                     sliceValues.add(sliceValue);
                     tags++;
@@ -174,20 +173,20 @@ public class MonthViewRecyclerViewAdapter
 
 
             while (!now.after(monthEnd)) {
-                Calendar leftWeekRange = CoCoinUtil.GetThisWeekLeftRange(now);
-                Calendar rightWeekRange = CoCoinUtil.GetThisWeekRightRange(now);
-                Calendar rightShownWeekRange = CoCoinUtil.GetThisWeekRightShownRange(now);
-                String dateString = CoCoinUtil.GetMonthShort(leftWeekRange.get(Calendar.MONTH) + 1) + " " +
+                Calendar leftWeekRange = HaStarUtil.GetThisWeekLeftRange(now);
+                Calendar rightWeekRange = HaStarUtil.GetThisWeekRightRange(now);
+                Calendar rightShownWeekRange = HaStarUtil.GetThisWeekRightShownRange(now);
+                String dateString = HaStarUtil.GetMonthShort(leftWeekRange.get(Calendar.MONTH) + 1) + " " +
                         leftWeekRange.get(Calendar.DAY_OF_MONTH) + " " +
                         leftWeekRange.get(Calendar.YEAR) + " - " +
-                        CoCoinUtil.GetMonthShort(rightShownWeekRange.get(Calendar.MONTH) + 1) + " " +
+                        HaStarUtil.GetMonthShort(rightShownWeekRange.get(Calendar.MONTH) + 1) + " " +
                         rightShownWeekRange.get(Calendar.DAY_OF_MONTH) + " " +
                         rightShownWeekRange.get(Calendar.YEAR);
                 dateStringList.add(dateString);
                 dateShownStringList.add(" from " +
-                        CoCoinUtil.GetMonthShort(leftWeekRange.get(Calendar.MONTH) + 1) + " " +
+                        HaStarUtil.GetMonthShort(leftWeekRange.get(Calendar.MONTH) + 1) + " " +
                         leftWeekRange.get(Calendar.DAY_OF_MONTH) + " to " +
-                        CoCoinUtil.GetMonthShort(rightShownWeekRange.get(Calendar.MONTH) + 1) + " " +
+                        HaStarUtil.GetMonthShort(rightShownWeekRange.get(Calendar.MONTH) + 1) + " " +
                         rightShownWeekRange.get(Calendar.DAY_OF_MONTH));
                 selectedPositionList.add(0);
 
@@ -210,7 +209,7 @@ public class MonthViewRecyclerViewAdapter
                     }
                 }
 
-                TagExpanse = CoCoinUtil.SortTreeMapByValues(TagExpanse);
+                TagExpanse = HaStarUtil.SortTreeMapByValues(TagExpanse);
 
                 for (Map.Entry<Integer, Double> entry : TagExpanse.entrySet()) {
                     if (entry.getValue() >= 1) {
@@ -218,7 +217,7 @@ public class MonthViewRecyclerViewAdapter
                         SliceValue sliceValue = new SliceValue(
                                 (float) (double) entry.getValue(),
                                 mContext.getResources().
-                                        getColor(CoCoinUtil.GetTagColorResource(entry.getKey())));
+                                        getColor(HaStarUtil.GetTagColorResource(entry.getKey())));
                         sliceValue.setLabel(String.valueOf(entry.getKey()));
                         sliceValues.add(sliceValue);
                     }
@@ -235,7 +234,7 @@ public class MonthViewRecyclerViewAdapter
                 pieChartData.setHasCenterCircle(SettingManager.getInstance().getIsHollow());
                 pieChartDataList.add(pieChartData);
 
-                now = CoCoinUtil.GetNextWeekLeftRange(now);
+                now = HaStarUtil.GetNextWeekLeftRange(now);
             }
         }
     }
@@ -282,9 +281,9 @@ public class MonthViewRecyclerViewAdapter
 
         if (IS_EMPTY) {
             holder.expanseSum.setText("¥0");
-            holder.expanseSum.setTypeface(CoCoinUtil.typefaceLatoLight);
+            holder.expanseSum.setTypeface(HaStarUtil.typefaceLatoLight);
             holder.emptyTip.setText(mContext.getResources().getString(R.string.tag_empty));
-            holder.emptyTip.setTypeface(CoCoinUtil.GetTypeface());
+            holder.emptyTip.setTypeface(HaStarUtil.GetTypeface());
             holder.tags.setVisibility(View.GONE);
             holder.date.setVisibility(View.INVISIBLE);
             holder.pie.setVisibility(View.INVISIBLE);
@@ -293,13 +292,13 @@ public class MonthViewRecyclerViewAdapter
             holder.all.setVisibility(View.GONE);
         } else {
             holder.date.setText(dateStringList.get(position));
-            holder.expanseSum.setText(CoCoinUtil.GetInMoney((int) (double) SumList.get(position)));
+            holder.expanseSum.setText(HaStarUtil.GetInMoney((int) (double) SumList.get(position)));
 
-            holder.date.setTypeface(CoCoinUtil.GetTypeface());
-            holder.expanseSum.setTypeface(CoCoinUtil.typefaceLatoLight);
+            holder.date.setTypeface(HaStarUtil.GetTypeface());
+            holder.expanseSum.setTypeface(HaStarUtil.typefaceLatoLight);
 
-            holder.tags.setTypeface(CoCoinUtil.typefaceLatoLight);
-            if ("zh".equals(CoCoinUtil.GetLanguage())) {
+            holder.tags.setTypeface(HaStarUtil.typefaceLatoLight);
+            if ("zh".equals(HaStarUtil.GetLanguage())) {
                 holder.tags.setText(" ● " + records + MyApplication.getAppContext().getResources().getString(R.string.report_view_records) + tags + MyApplication.getAppContext().getResources().getString(R.string.report_view_tags));
             } else {
                 holder.tags.setText(" ● " + records + " " + MyApplication.getAppContext().getResources().getString(R.string.report_view_records) + " " + tags + " " + MyApplication.getAppContext().getResources().getString(R.string.report_view_tags));
@@ -307,7 +306,7 @@ public class MonthViewRecyclerViewAdapter
 
             if (SumList.get(position).equals(Double.valueOf(0))) {
                 holder.emptyTip.setVisibility(View.VISIBLE);
-                holder.emptyTip.setTypeface(CoCoinUtil.typefaceLatoLight);
+                holder.emptyTip.setTypeface(HaStarUtil.typefaceLatoLight);
             } else {
                 holder.emptyTip.setVisibility(View.GONE);
             }
@@ -356,12 +355,12 @@ public class MonthViewRecyclerViewAdapter
             holder.all.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                    if ("zh".equals(HaStarUtil.GetLanguage())) {
                         dialogTitle = mContext.getResources().getString(R.string.in)
                                 + dateStringList.get(position) +
-                                " " + CoCoinUtil.GetSpendString((int) (double) SumList.get(position));
+                                " " + HaStarUtil.GetSpendString((int) (double) SumList.get(position));
                     } else {
-                        dialogTitle = CoCoinUtil.GetSpendString((int) (double) SumList.get(position)) +
+                        dialogTitle = HaStarUtil.GetSpendString((int) (double) SumList.get(position)) +
                                 mContext.getResources().getString(R.string.in) + " "
                                 + dateStringList.get(position);
                     }
@@ -415,23 +414,23 @@ public class MonthViewRecyclerViewAdapter
             String text = "";
             final int tagId = Integer.valueOf(String.valueOf(sliceValue.getLabelAsChars()));
             Double percent = sliceValue.getValue() / SumList.get(position) * 100;
-            if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                text = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
-                        CoCoinUtil.GetPercentString(percent) + "\n" +
-                        "于" + CoCoinUtil.GetTagName(tagId);
+            if ("zh".equals(HaStarUtil.GetLanguage())) {
+                text = HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
+                        HaStarUtil.GetPercentString(percent) + "\n" +
+                        "于" + HaStarUtil.GetTagName(tagId);
                 dialogTitle = mContext.getResources().getString(R.string.in)
                         + dateStringList.get(position) +
-                        " " + CoCoinUtil.GetSpendString((int) sliceValue.getValue()) + "\n" +
-                        "于" + CoCoinUtil.GetTagName(tagId);
+                        " " + HaStarUtil.GetSpendString((int) sliceValue.getValue()) + "\n" +
+                        "于" + HaStarUtil.GetTagName(tagId);
 
             } else {
-                text = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
-                        CoCoinUtil.GetPercentString(percent) + "\n" +
-                        "in " + CoCoinUtil.GetTagName(RecordManager.TAGS.get(tagId).getId());
-                dialogTitle = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
+                text = HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
+                        HaStarUtil.GetPercentString(percent) + "\n" +
+                        "in " + HaStarUtil.GetTagName(RecordManager.TAGS.get(tagId).getId());
+                dialogTitle = HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
                         mContext.getResources().getString(R.string.in) + " "
                         + dateStringList.get(position) + "\n" +
-                        "in " + CoCoinUtil.GetTagName(RecordManager.TAGS.get(tagId).getId());
+                        "in " + HaStarUtil.GetTagName(RecordManager.TAGS.get(tagId).getId());
             }
             Snackbar snackbar =
                     Snackbar
@@ -440,11 +439,11 @@ public class MonthViewRecyclerViewAdapter
                             .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                             .position(Snackbar.SnackbarPosition.BOTTOM)
                             .margin(15, 15)
-                            .backgroundDrawable(CoCoinUtil.GetSnackBarBackground(fragmentPosition - 2))
+                            .backgroundDrawable(HaStarUtil.GetSnackBarBackground(fragmentPosition - 2))
                             .text(text)
-                            .textTypeface(CoCoinUtil.GetTypeface())
+                            .textTypeface(HaStarUtil.GetTypeface())
                             .textColor(Color.WHITE)
-                            .actionLabelTypeface(CoCoinUtil.GetTypeface())
+                            .actionLabelTypeface(HaStarUtil.GetTypeface())
                             .actionLabel(mContext.getResources().getString(R.string.check))
                             .actionColor(Color.WHITE)
                             .actionListener(new ActionClickListener() {

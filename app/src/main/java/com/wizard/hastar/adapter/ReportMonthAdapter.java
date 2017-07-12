@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wizard.hastar.R;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -50,16 +50,16 @@ public class ReportMonthAdapter extends BaseAdapter {
         TextView expense = (TextView)convertView.findViewById(R.id.month_expense);
         TextView records = (TextView)convertView.findViewById(R.id.month_sum);
 
-        icon.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        name.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        expense.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
-        records.setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        icon.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        name.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        expense.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
+        records.setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
 
         icon.setBackgroundResource(getBackgroundResource());
         icon.setText("" + ((int)highestMonthExpense.get(position + 1)[1] + 1));
-        name.setText(CoCoinUtil.GetMonthShort((int) highestMonthExpense.get(position + 1)[1] + 1) + " " + year + CoCoinUtil.getInstance().GetPurePercentString(highestMonthExpense.get(position + 1)[4] * 100));
-        expense.setText(CoCoinUtil.getInstance().GetInMoney((int) highestMonthExpense.get(position + 1)[3]));
-        records.setText(CoCoinUtil.getInstance().GetInRecords((int) highestMonthExpense.get(position + 1)[5]));
+        name.setText(HaStarUtil.GetMonthShort((int) highestMonthExpense.get(position + 1)[1] + 1) + " " + year + HaStarUtil.getInstance().GetPurePercentString(highestMonthExpense.get(position + 1)[4] * 100));
+        expense.setText(HaStarUtil.getInstance().GetInMoney((int) highestMonthExpense.get(position + 1)[3]));
+        records.setText(HaStarUtil.getInstance().GetInRecords((int) highestMonthExpense.get(position + 1)[5]));
 
         return convertView;
     }

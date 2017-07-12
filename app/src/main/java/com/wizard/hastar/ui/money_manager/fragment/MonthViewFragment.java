@@ -16,7 +16,7 @@ import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.MonthViewRecyclerViewAdapter;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -94,8 +94,8 @@ public class MonthViewFragment extends Fragment {
                     nowYear, nowMonth, monthStart.getActualMaximum(Calendar.DAY_OF_MONTH), 23, 59, 59);
             monthEnd.add(Calendar.MILLISECOND, 0);
 
-            Calendar leftRange = CoCoinUtil.GetThisWeekLeftRange(monthStart);
-            Calendar rightRange = CoCoinUtil.GetThisWeekRightRange(monthEnd);
+            Calendar leftRange = HaStarUtil.GetThisWeekLeftRange(monthStart);
+            Calendar rightRange = HaStarUtil.GetThisWeekRightRange(monthEnd);
 
             int start = -1;
             int end = 0;

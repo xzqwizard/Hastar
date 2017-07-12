@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.ui.money_manager.fragment.TagViewFragment;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 
 /**
@@ -30,7 +30,7 @@ public class TagViewFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return CoCoinUtil.GetTagName(
+        return HaStarUtil.GetTagName(
                 RecordManager.getInstance(MyApplication.getAppContext()).TAGS.get(position % RecordManager.TAGS.size()).getId());
     }
 }

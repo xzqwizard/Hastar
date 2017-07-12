@@ -17,7 +17,7 @@ import com.wizard.hastar.MyApplication;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 /**
  * Created by 伟平 on 2015/10/27.
@@ -63,9 +63,9 @@ public class EditMoneyFragment extends Fragment {
         editView = (MaterialEditText)mView.findViewById(R.id.money);
         tagImage = (ImageView)mView.findViewById(R.id.tag_image);
         tagName = (TextView)mView.findViewById(R.id.tag_name);
-        tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
+        tagName.setTypeface(HaStarUtil.typefaceLatoLight);
 
-        editView.setTypeface(CoCoinUtil.typefaceLatoHairline);
+        editView.setTypeface(HaStarUtil.typefaceLatoHairline);
         editView.setText("0");
         editView.requestFocus();
         editView.setHelperText(" ");
@@ -82,17 +82,17 @@ public class EditMoneyFragment extends Fragment {
         setEditColor(shouldChange);
 
         if (getArguments().getInt("type") == FragmentManager.EDIT_RECORD_ACTIVITY_FRAGMENT
-                && CoCoinUtil.editRecordPosition != -1) {
+                && HaStarUtil.editRecordPosition != -1) {
             FragmentManager.editRecordActivityEditMoneyFragment
-                    .setTagImage(CoCoinUtil.GetTagIcon(
-                            (int)RecordManager.SELECTED_RECORDS.get(CoCoinUtil.editRecordPosition).getTag()));
+                    .setTagImage(HaStarUtil.GetTagIcon(
+                            (int)RecordManager.SELECTED_RECORDS.get(HaStarUtil.editRecordPosition).getTag()));
             FragmentManager.editRecordActivityEditMoneyFragment
-                    .setTagName(CoCoinUtil.GetTagName(
-                            (int)RecordManager.SELECTED_RECORDS.get(CoCoinUtil.editRecordPosition).getTag()));
+                    .setTagName(HaStarUtil.GetTagName(
+                            (int)RecordManager.SELECTED_RECORDS.get(HaStarUtil.editRecordPosition).getTag()));
             FragmentManager.editRecordActivityEditMoneyFragment
-                    .setTagId(RecordManager.SELECTED_RECORDS.get(CoCoinUtil.editRecordPosition).getTag());
+                    .setTagId(RecordManager.SELECTED_RECORDS.get(HaStarUtil.editRecordPosition).getTag());
             FragmentManager.editRecordActivityEditMoneyFragment
-                    .setNumberText(String.format("%.0f", RecordManager.SELECTED_RECORDS.get(CoCoinUtil.editRecordPosition).getMoney()));
+                    .setNumberText(String.format("%.0f", RecordManager.SELECTED_RECORDS.get(HaStarUtil.editRecordPosition).getMoney()));
         }
 
         return mView;
@@ -116,8 +116,8 @@ public class EditMoneyFragment extends Fragment {
 
     public void setTag(int p) {
         tagId = RecordManager.TAGS.get(p).getId();
-        tagName.setText(CoCoinUtil.GetTagName(RecordManager.TAGS.get(p).getId()));
-        tagImage.setImageResource(CoCoinUtil.GetTagIcon(RecordManager.TAGS.get(p).getId()));
+        tagName.setText(HaStarUtil.GetTagName(RecordManager.TAGS.get(p).getId()));
+        tagImage.setImageResource(HaStarUtil.GetTagIcon(RecordManager.TAGS.get(p).getId()));
     }
 
     public String getNumberText() {
@@ -149,9 +149,9 @@ public class EditMoneyFragment extends Fragment {
             editView.setPrimaryColor(SettingManager.getInstance().getRemindColor());
             editView.setHelperTextColor(SettingManager.getInstance().getRemindColor());
         } else {
-            editView.setTextColor(CoCoinUtil.getInstance().MY_BLUE);
-            editView.setPrimaryColor(CoCoinUtil.getInstance().MY_BLUE);
-            editView.setHelperTextColor(CoCoinUtil.getInstance().MY_BLUE);
+            editView.setTextColor(HaStarUtil.getInstance().MY_BLUE);
+            editView.setPrimaryColor(HaStarUtil.getInstance().MY_BLUE);
+            editView.setHelperTextColor(HaStarUtil.getInstance().MY_BLUE);
         }
     }
 

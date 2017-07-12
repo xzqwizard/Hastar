@@ -1,7 +1,6 @@
 package com.wizard.hastar.ui.money_manager.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -33,7 +31,7 @@ import com.wizard.hastar.adapter.PasswordChangeButtonGridViewAdapter;
 import com.wizard.hastar.adapter.PasswordChangeFragmentAdapter;
 import com.wizard.hastar.ui.money_manager.fragment.FragmentManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.MyGridView;
 
@@ -96,8 +94,8 @@ public class ShowActivity extends AppCompatActivity {
         mContext = this;
 
         title = (TextView) findViewById(R.id.title);
-        CoCoinUtil.init(mContext);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
+        HaStarUtil.init(mContext);
+        title.setTypeface(HaStarUtil.typefaceLatoLight);
         title.setText(mContext.getResources().getString(R.string.app_name));
 
         mViewPager = (SCViewPager) findViewById(R.id.viewpager_main_activity);
@@ -128,8 +126,8 @@ public class ShowActivity extends AppCompatActivity {
 
         final Point size = SCViewAnimationUtil.getDisplaySize(this);
 
-        int iconOffsetX = CoCoinUtil.getInstance().dpToPx(28);
-        int iconOffsetY = CoCoinUtil.getInstance().dpToPx(28);
+        int iconOffsetX = HaStarUtil.getInstance().dpToPx(28);
+        int iconOffsetY = HaStarUtil.getInstance().dpToPx(28);
 
         SCViewAnimation sc0 = new SCViewAnimation(findViewById(R.id.icon_4));
         sc0.startToPosition(size.x / 4 - iconOffsetX, size.y * 2 / 7 - iconOffsetY);
@@ -151,7 +149,7 @@ public class ShowActivity extends AppCompatActivity {
         sc3.addPageAnimation(new SCPositionAnimation(this, 0, 0, -size.y));
         mViewPager.addAnimation(sc3);
 
-        ((TextView) findViewById(R.id.text_0)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        ((TextView) findViewById(R.id.text_0)).setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc4 = new SCViewAnimation(findViewById(R.id.text_0));
         sc4.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
         mViewPager.addAnimation(sc4);
@@ -228,12 +226,12 @@ public class ShowActivity extends AppCompatActivity {
         histogram.setColumnChartData(histogramData);
         histogram.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
         SCViewAnimation sc7 = new SCViewAnimation(histogram);
-        sc7.startToPosition(size.x / 2 - CoCoinUtil.getInstance().dpToPx(140), size.y * 8 / 9 - CoCoinUtil.getInstance().dpToPx(140) + size.y);
+        sc7.startToPosition(size.x / 2 - HaStarUtil.getInstance().dpToPx(140), size.y * 8 / 9 - HaStarUtil.getInstance().dpToPx(140) + size.y);
         sc7.addPageAnimation(new SCPositionAnimation(this, 0, 0, -size.y));
         sc7.addPageAnimation(new SCPositionAnimation(this, 1, 0, size.y));
         mViewPager.addAnimation(sc7);
 
-        ((TextView) findViewById(R.id.text_1)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        ((TextView) findViewById(R.id.text_1)).setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc8 = new SCViewAnimation(findViewById(R.id.text_1));
         sc8.startToPosition(size.x, null);
         sc8.addPageAnimation(new SCPositionAnimation(this, 0, -size.x, 0));
@@ -241,18 +239,18 @@ public class ShowActivity extends AppCompatActivity {
         mViewPager.addAnimation(sc8);
 
         SCViewAnimation sc9 = new SCViewAnimation(findViewById(R.id.cloud));
-        sc9.startToPosition(size.x / 2 - CoCoinUtil.getInstance().dpToPx(100) + size.x, size.y / 7);
+        sc9.startToPosition(size.x / 2 - HaStarUtil.getInstance().dpToPx(100) + size.x, size.y / 7);
         sc9.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
         sc9.addPageAnimation(new SCPositionAnimation(this, 2, 0, size.y));
         mViewPager.addAnimation(sc9);
 
         SCViewAnimation sc10 = new SCViewAnimation(findViewById(R.id.mobile));
-        sc10.startToPosition(size.x / 2 - size.x, size.y * 6 / 7 - CoCoinUtil.getInstance().dpToPx(100));
+        sc10.startToPosition(size.x / 2 - size.x, size.y * 6 / 7 - HaStarUtil.getInstance().dpToPx(100));
         sc10.addPageAnimation(new SCPositionAnimation(this, 1, size.x, 0));
         sc10.addPageAnimation(new SCPositionAnimation(this, 2, 0, -size.y));
         mViewPager.addAnimation(sc10);
 
-        ((TextView) findViewById(R.id.text_2)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        ((TextView) findViewById(R.id.text_2)).setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc11 = new SCViewAnimation(findViewById(R.id.text_2));
         sc11.startToPosition(size.x, null);
         sc11.addPageAnimation(new SCPositionAnimation(this, 1, -size.x, 0));
@@ -277,7 +275,7 @@ public class ShowActivity extends AppCompatActivity {
         sc13.addPageAnimation(new SCPositionAnimation(this, 3, -size.x, 0));
         mViewPager.addAnimation(sc13);
 
-        ((TextView) findViewById(R.id.text_3)).setTypeface(CoCoinUtil.getInstance().typefaceLatoLight);
+        ((TextView) findViewById(R.id.text_3)).setTypeface(HaStarUtil.getInstance().typefaceLatoLight);
         SCViewAnimation sc14 = new SCViewAnimation(findViewById(R.id.text_3));
         sc14.startToPosition(size.x, null);
         sc14.addPageAnimation(new SCPositionAnimation(this, 2, -size.x, 0));
@@ -325,7 +323,7 @@ public class ShowActivity extends AppCompatActivity {
                                 = new RelativeLayout.LayoutParams(viewPager.getLayoutParams().width,
                                 800);
                         viewPagerLayoutParams.topMargin
-                                = getStatusBarHeight() + CoCoinUtil.getToolBarHeight(mContext) / 2;
+                                = getStatusBarHeight() + HaStarUtil.getToolBarHeight(mContext) / 2;
                         viewPager.setLayoutParams(viewPagerLayoutParams);
                     }
                 });
@@ -379,7 +377,7 @@ public class ShowActivity extends AppCompatActivity {
     private void buttonClickOperation(boolean longClick, int position) {
         switch (CURRENT_STATE) {
             case NEW_PASSWORD:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)) {
                     if (longClick) {
                         FragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         newPassword = "";
@@ -389,12 +387,12 @@ public class ShowActivity extends AppCompatActivity {
                         if (newPassword.length() != 0)
                             newPassword = newPassword.substring(0, newPassword.length() - 1);
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (HaStarUtil.ClickButtonCommit(position)) {
 
                 } else {
                     FragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(newPassword.length());
-                    newPassword += CoCoinUtil.BUTTONS[position];
+                    newPassword += HaStarUtil.BUTTONS[position];
                     if (newPassword.length() == 4) {
                         // finish the new password input
                         CURRENT_STATE = PASSWORD_AGAIN;
@@ -403,7 +401,7 @@ public class ShowActivity extends AppCompatActivity {
                 }
                 break;
             case PASSWORD_AGAIN:
-                if (CoCoinUtil.ClickButtonDelete(position)) {
+                if (HaStarUtil.ClickButtonDelete(position)) {
                     if (longClick) {
                         FragmentManager.passwordChangeFragment[CURRENT_STATE].init();
                         againPassword = "";
@@ -413,12 +411,12 @@ public class ShowActivity extends AppCompatActivity {
                         if (againPassword.length() != 0)
                             againPassword = againPassword.substring(0, againPassword.length() - 1);
                     }
-                } else if (CoCoinUtil.ClickButtonCommit(position)) {
+                } else if (HaStarUtil.ClickButtonCommit(position)) {
 
                 } else {
                     FragmentManager.passwordChangeFragment[CURRENT_STATE]
                             .set(againPassword.length());
-                    againPassword += CoCoinUtil.BUTTONS[position];
+                    againPassword += HaStarUtil.BUTTONS[position];
                     if (againPassword.length() == 4) {
                         // if the password again is equal to the new password
                         if (againPassword.equals(newPassword)) {

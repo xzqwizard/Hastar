@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.model.Record;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -136,11 +135,11 @@ public class CustomViewFragment extends Fragment {
 
         MaterialViewPagerHelper.registerScrollView(getActivity(), mScrollView, null);
         fromDate = (TextView) view.findViewById(R.id.from_date);
-        fromDate.setTypeface(CoCoinUtil.GetTypeface());
+        fromDate.setTypeface(HaStarUtil.GetTypeface());
 
         expense = (TextView) view.findViewById(R.id.expense);
-        expense.setTypeface(CoCoinUtil.typefaceLatoLight);
-        expense.setText(CoCoinUtil.GetInMoney(0));
+        expense.setTypeface(HaStarUtil.typefaceLatoLight);
+        expense.setText(HaStarUtil.GetInMoney(0));
 
         pie = (PieChartView) view.findViewById(R.id.chart_pie);
         pie.setVisibility(View.INVISIBLE);
@@ -154,7 +153,7 @@ public class CustomViewFragment extends Fragment {
         all.setVisibility(View.INVISIBLE);
 
         emptyTip = (TextView) view.findViewById(R.id.empty_tip);
-        emptyTip.setTypeface(CoCoinUtil.GetTypeface());
+        emptyTip.setTypeface(HaStarUtil.GetTypeface());
 
         if (IS_EMPTY) {
             emptyTip.setVisibility(View.GONE);
@@ -192,12 +191,12 @@ public class CustomViewFragment extends Fragment {
                     } else {
                         fromDate.setText(" ● " +
                                 mContext.getResources().getString(R.string.from) + " " +
-                                CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1)
-                                + " " + from.get(Calendar.DAY_OF_MONTH) + CoCoinUtil.GetWhetherFuck() +
+                                HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1)
+                                + " " + from.get(Calendar.DAY_OF_MONTH) + HaStarUtil.GetWhetherFuck() +
                                 from.get(Calendar.YEAR) + " " +
                                 mContext.getResources().getString(R.string.to) + " " +
-                                CoCoinUtil.GetMonthShort(to.get(Calendar.MONTH) + 1)
-                                + " " + to.get(Calendar.DAY_OF_MONTH) + CoCoinUtil.GetWhetherFuck() +
+                                HaStarUtil.GetMonthShort(to.get(Calendar.MONTH) + 1)
+                                + " " + to.get(Calendar.DAY_OF_MONTH) + HaStarUtil.GetWhetherFuck() +
                                 to.get(Calendar.YEAR));
                         select();
                     }
@@ -286,10 +285,10 @@ public class CustomViewFragment extends Fragment {
                     coCoinRecord.getCalendar().getTimeInMillis()) - startDay)] += coCoinRecord.getMoney();
         }
 
-        expense.setText(CoCoinUtil.GetInMoney(Sum));
+        expense.setText(HaStarUtil.GetInMoney(Sum));
         emptyTip.setVisibility(View.GONE);
 
-        TagExpanse = CoCoinUtil.SortTreeMapByValues(TagExpanse);
+        TagExpanse = HaStarUtil.SortTreeMapByValues(TagExpanse);
 
         final ArrayList<SliceValue> sliceValues = new ArrayList<>();
 
@@ -297,7 +296,7 @@ public class CustomViewFragment extends Fragment {
             if (entry.getValue() >= 1) {
                 SliceValue sliceValue = new SliceValue(
                         (float) (double) entry.getValue(),
-                        CoCoinUtil.GetTagColor(entry.getKey()));
+                        HaStarUtil.GetTagColor(entry.getKey()));
                 sliceValue.setLabel(String.valueOf(entry.getKey()));
                 sliceValues.add(sliceValue);
             }
@@ -355,11 +354,11 @@ public class CustomViewFragment extends Fragment {
 // set value touch listener of pie//////////////////////////////////////////////////////////////////
 
         dateShownString = mContext.getResources().getString(R.string.from) + " " +
-                CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " +
+                HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " +
                 from.get(Calendar.DAY_OF_MONTH) + " " +
                 from.get(Calendar.YEAR) + " " +
                 mContext.getResources().getString(R.string.to) + " " +
-                CoCoinUtil.GetMonthShort(to.get(Calendar.MONTH) + 1) + " " +
+                HaStarUtil.GetMonthShort(to.get(Calendar.MONTH) + 1) + " " +
                 to.get(Calendar.DAY_OF_MONTH) + " " +
                 to.get(Calendar.YEAR);
 
@@ -370,30 +369,30 @@ public class CustomViewFragment extends Fragment {
                 String text;
                 tagId = Integer.valueOf(String.valueOf(sliceValue.getLabelAsChars()));
                 double percent = sliceValue.getValue() / Sum * 100;
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
-                    text = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) +
-                            CoCoinUtil.GetPercentString(percent) + "\n" +
-                            "于" + CoCoinUtil.GetTagName(tagId);
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
+                    text = HaStarUtil.GetSpendString((int) sliceValue.getValue()) +
+                            HaStarUtil.GetPercentString(percent) + "\n" +
+                            "于" + HaStarUtil.GetTagName(tagId);
                 } else {
-                    text = CoCoinUtil.GetSpendString((int) sliceValue.getValue())
+                    text = HaStarUtil.GetSpendString((int) sliceValue.getValue())
                             + " (takes " + String.format("%.2f", percent) + "%)\n"
-                            + "in " + CoCoinUtil.GetTagName(tagId);
+                            + "in " + HaStarUtil.GetTagName(tagId);
                 }
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     dialogTitle = dateShownString + "\n" +
-                            CoCoinUtil.GetSpendString((int) sliceValue.getValue()) + " " +
-                            "于" + CoCoinUtil.GetTagName(tagId);
+                            HaStarUtil.GetSpendString((int) sliceValue.getValue()) + " " +
+                            "于" + HaStarUtil.GetTagName(tagId);
                 } else {
-                    dialogTitle = CoCoinUtil.GetSpendString((int) sliceValue.getValue()) + " " +
+                    dialogTitle = HaStarUtil.GetSpendString((int) sliceValue.getValue()) + " " +
                             mContext.getResources().getString(R.string.from) + " " +
-                            CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " +
+                            HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " +
                             from.get(Calendar.DAY_OF_MONTH) + " " +
                             from.get(Calendar.YEAR) + "\n" +
                             mContext.getResources().getString(R.string.to) + " " +
-                            CoCoinUtil.GetMonthShort(to.get(Calendar.MONTH) + 1) + " " +
+                            HaStarUtil.GetMonthShort(to.get(Calendar.MONTH) + 1) + " " +
                             to.get(Calendar.DAY_OF_MONTH) + " " +
                             to.get(Calendar.YEAR) + " " +
-                            "in " + CoCoinUtil.GetTagName(tagId);
+                            "in " + HaStarUtil.GetTagName(tagId);
                 }
                 Snackbar snackbar =
                         Snackbar
@@ -402,11 +401,11 @@ public class CustomViewFragment extends Fragment {
                                 .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                                 .position(Snackbar.SnackbarPosition.BOTTOM)
                                 .margin(15, 15)
-                                .backgroundDrawable(CoCoinUtil.GetSnackBarBackground(-3))
+                                .backgroundDrawable(HaStarUtil.GetSnackBarBackground(-3))
                                 .text(text)
-                                .textTypeface(CoCoinUtil.GetTypeface())
+                                .textTypeface(HaStarUtil.GetTypeface())
                                 .textColor(Color.WHITE)
-                                .actionLabelTypeface(CoCoinUtil.GetTypeface())
+                                .actionLabelTypeface(HaStarUtil.GetTypeface())
                                 .actionLabel(mContext.getResources()
                                         .getString(R.string.check))
                                 .actionColor(Color.WHITE)
@@ -432,21 +431,21 @@ public class CustomViewFragment extends Fragment {
             public void onClick(View v) {
                 List<Record> data = new LinkedList<Record>();
                 for (int i = start; i >= end; i--) data.add(RecordManager.RECORDS.get(i));
-                if ("zh".equals(CoCoinUtil.GetLanguage())) {
+                if ("zh".equals(HaStarUtil.GetLanguage())) {
                     dialogTitle = dateShownString + "\n" +
-                            CoCoinUtil.GetSpendString(Sum) +
-                            "于" + CoCoinUtil.GetTagName(tagId);
+                            HaStarUtil.GetSpendString(Sum) +
+                            "于" + HaStarUtil.GetTagName(tagId);
                 } else {
-                    dialogTitle = CoCoinUtil.GetSpendString(Sum) + " "
+                    dialogTitle = HaStarUtil.GetSpendString(Sum) + " "
                             + mContext.getResources().getString(R.string.from) + " " +
-                            CoCoinUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " +
+                            HaStarUtil.GetMonthShort(from.get(Calendar.MONTH) + 1) + " " +
                             from.get(Calendar.DAY_OF_MONTH) + " " +
                             from.get(Calendar.YEAR) + "\n" +
                             mContext.getResources().getString(R.string.to) + " " +
-                            CoCoinUtil.GetMonthShort(to.get(Calendar.MONTH) + 1) + " " +
+                            HaStarUtil.GetMonthShort(to.get(Calendar.MONTH) + 1) + " " +
                             to.get(Calendar.DAY_OF_MONTH) + " " +
                             to.get(Calendar.YEAR) + " " +
-                            "in " + CoCoinUtil.GetTagName(tagId);
+                            "in " + HaStarUtil.GetTagName(tagId);
                 }
                 ((FragmentActivity) mContext).getSupportFragmentManager()
                         .beginTransaction()

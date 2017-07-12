@@ -235,7 +235,7 @@
         已修改账本名字但是上传失败
     </string>
 
-    <string name="register_successfully">欢迎来到CoCoin！\n</string>
+    <string name="register_successfully">欢迎来到HaStar！\n</string>
     <string name="register_fail">注册失败！\n</string>
     <string name="login_successfully">欢迎回来！\n</string>
     <string name="login_fail">登录失败！\n</string>
@@ -278,7 +278,7 @@
 
     <string name="first_time_set_password">
         &#160;Hi！\n
-        欢迎使用CoCoin！\n
+        欢迎使用HaStar！\n
         为了您的账本安全，\n
         我想你需要一个密码
     </string>
@@ -468,7 +468,7 @@
     <string name="help_cocoin_content_3">
         ● 在账本中，有对今天、昨天、这周、上周、这个月、上个月、今年和去年的记录。
         您可以通过点击饼状图的饼块或者柱状图的柱形来查看详细支出信息。
-        CoCoin的所有图表都可以通过点击来获取详细信息，您也可以通过点击图表旁的选择按钮来对某些不易点击得到的地方进行查阅。
+        HaStar的所有图表都可以通过点击来获取详细信息，您也可以通过点击图表旁的选择按钮来对某些不易点击得到的地方进行查阅。
         点击或选择图表中的某一部分会有弹窗提示相关信息，点击查看可以在弹出的对话框中看到列表，列表中即为每条记录的信息。
         通过点击列表中的某一条记录，您可以看到更为详细的情况。
         如果您希望通过更多的视图来查阅自己的支出情况，右滑打开菜单即可。
@@ -505,8 +505,8 @@
     </string>
     <string name="help_cocoin_content_11"> ● 感谢您使用CoCoin</string>
 
-    <string name="help_feedback_content_1"> ● 很高兴能收到您的反馈，如果您有非文本内容，可以发到我的电子邮箱：Nightonke@outlook.com.</string>
-    <string name="help_feedback_content_2">让CoCoin变得更好</string>
+    <string name="help_feedback_content_1"> ● 很高兴能收到您的反馈，如果您有非文本内容，可以发到我的电子邮箱：297155403@qq.com.</string>
+    <string name="help_feedback_content_2">让HaStar变得更好</string>
     <string name="help_feedback_hint">您可以在此处编辑反馈</string>
     <string name="help_feedback_edit">编辑</string>
     <string name="help_feedback_send">发送</string>

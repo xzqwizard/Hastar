@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_homepage_title"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    app:layout_collapseMode="pin">
+
+
+    <ImageView
+        android:id="@+id/iv_homepage_back"
+        android:layout_width="@dimen/d20"
+        android:layout_height="@dimen/d20"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/d10"
+        android:background="@mipmap/back_left_blue" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_homepage_centertitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cv_homepage_avatar_title"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:src="@mipmap/image1" />
+
+        <TextView
+            android:id="@+id/tv_homepage_nickname_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:paddingRight="15dp"
+            android:text="HaStar"
+            android:textSize="@dimen/s12" />
+    </LinearLayout>
+
+    <com.wizard.hastar.widget.RoundProgressBar
+        android:id="@+id/progressbar_homepage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        app:round_max="360"
+        app:round_progressColor="@android:color/white"
+        app:round_width="1dp" />
+
+
+    <ImageView
+        android:id="@+id/iv_homepage_edit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/ic_edit_blue" />
+
+</RelativeLayout>

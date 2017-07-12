@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 
 /**
@@ -62,11 +62,11 @@ public class TagChooseGridViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tagName.setText(CoCoinUtil.GetTagName(RecordManager.TAGS.
+        holder.tagName.setText(HaStarUtil.GetTagName(RecordManager.TAGS.
                 get(fragmentPosition * 8 + position + 2).getId()));
-        holder.tagName.setTypeface(CoCoinUtil.typefaceLatoLight);
+        holder.tagName.setTypeface(HaStarUtil.typefaceLatoLight);
         holder.tagImage.setImageResource(
-                CoCoinUtil.GetTagIcon(RecordManager.TAGS.
+                HaStarUtil.GetTagIcon(RecordManager.TAGS.
                         get(fragmentPosition * 8 + position + 2).getId()));
 
         return convertView;

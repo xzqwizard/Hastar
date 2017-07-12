@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundProgressBar">
+        <attr name="round_color" format="color" />
+        <attr name="round_progressColor" format="color" />
+        <attr name="round_width" format="dimension"></attr>
+        <attr name="round_textColor" format="color" />
+        <attr name="round_textsize" format="dimension" />
+        <attr name="round_max" format="integer"></attr>
+    </declare-styleable>
+</resources>

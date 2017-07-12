@@ -25,12 +25,13 @@
         <activity android:name=".ui.money_manager.activity.AccountBookListViewActivity" />
         <activity android:name=".ui.money_manager.activity.AccountBookMonthViewActivity" />
         <activity android:name=".ui.money_manager.activity.AccountBookReportViewActivity" />
-        <activity android:name=".ui.money_manager.activity.AccountBookSettingActivity" />
+        <activity android:name=".ui.SettingActivity" />
         <activity android:name=".ui.money_manager.activity.AccountBookTagViewActivity" />
         <activity android:name=".ui.money_manager.activity.AccountBookTodayViewActivity" />
         <activity android:name=".ui.money_manager.activity.EditPasswordActivity" />
         <activity android:name=".ui.money_manager.activity.EditRecordActivity" />
         <activity android:name=".ui.money_manager.activity.TagSettingActivity" />
+        <activity android:name=".ui.HomePageActivity"/>
     </application>
 
 </manifest>

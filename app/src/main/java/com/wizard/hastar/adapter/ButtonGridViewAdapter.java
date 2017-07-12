@@ -12,7 +12,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.wizard.hastar.R;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 import net.steamcrafted.materialiconlib.MaterialIconView;
@@ -33,7 +33,7 @@ public class ButtonGridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return CoCoinUtil.BUTTONS.length;
+        return HaStarUtil.BUTTONS.length;
     }
 
     @Override
@@ -62,19 +62,19 @@ public class ButtonGridViewAdapter extends BaseAdapter {
         }
 
         if (position == 11) {
-            holder.tv.setTypeface(CoCoinUtil.typefaceLatoHairline);
+            holder.tv.setTypeface(HaStarUtil.typefaceLatoHairline);
             holder.tv.setVisibility(View.INVISIBLE);
             holder.iv.setIcon(MaterialDrawableBuilder.IconValue.CHECK);
             holder.ml.setRippleAlpha(50);
         } else if (position == 9) {
             holder.iv.setIcon(MaterialDrawableBuilder.IconValue.ERASER);
-            holder.tv.setTypeface(CoCoinUtil.typefaceLatoHairline);
+            holder.tv.setTypeface(HaStarUtil.typefaceLatoHairline);
             holder.tv.setVisibility(View.INVISIBLE);
             holder.ml.setRippleAlpha(50);
         } else {
             holder.iv.setVisibility(View.INVISIBLE);
-            holder.tv.setTypeface(CoCoinUtil.typefaceLatoHairline);
-            holder.tv.setText(CoCoinUtil.BUTTONS[position]);
+            holder.tv.setTypeface(HaStarUtil.typefaceLatoHairline);
+            holder.tv.setText(HaStarUtil.BUTTONS[position]);
             holder.ml.setRippleDelayClick(false);
         }
 
@@ -86,15 +86,15 @@ public class ButtonGridViewAdapter extends BaseAdapter {
                 >= SettingManager.getInstance().getMonthWarning();
         if (shouldChange) {
             holder.fl.setBackgroundColor(
-                    CoCoinUtil.getAlphaColor(SettingManager.getInstance().getRemindColor()));
+                    HaStarUtil.getAlphaColor(SettingManager.getInstance().getRemindColor()));
             holder.ml.setRippleColor(SettingManager.getInstance().getRemindColor());
             holder.iv.setColor(SettingManager.getInstance().getRemindColor());
             holder.tv.setTextColor(SettingManager.getInstance().getRemindColor());
         } else {
-            holder.fl.setBackgroundColor(CoCoinUtil.getAlphaColor(CoCoinUtil.MY_BLUE));
-            holder.ml.setRippleColor(CoCoinUtil.MY_BLUE);
-            holder.iv.setColor(CoCoinUtil.MY_BLUE);
-            holder.tv.setTextColor(CoCoinUtil.MY_BLUE);
+            holder.fl.setBackgroundColor(HaStarUtil.getAlphaColor(HaStarUtil.MY_BLUE));
+            holder.ml.setRippleColor(HaStarUtil.MY_BLUE);
+            holder.iv.setColor(HaStarUtil.MY_BLUE);
+            holder.tv.setTextColor(HaStarUtil.MY_BLUE);
         }
 
 

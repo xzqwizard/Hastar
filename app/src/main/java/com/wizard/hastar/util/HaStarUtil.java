@@ -41,10 +41,10 @@ import java.util.TreeMap;
  * Created by 伟平 on 2015/10/16.
  */
 
-// Todo make CoCoinUtil singleton
+// Todo make HaStarUtil singleton
 // Todo floating labels in english
 
-public class CoCoinUtil {
+public class HaStarUtil {
 
     public static int editRecordPosition = -1;
 
@@ -361,39 +361,36 @@ public class CoCoinUtil {
     };
 
     public static String[] TAG_HEADER_URL = {
-            "http://file.bmob.cn/M02/5A/B5/oYYBAFajMcmAWxDmAAAAX54YFR4292.png",
-            "http://file.bmob.cn/M02/5A/B6/oYYBAFajMguAMEjaAACp5TYCw2c161.jpg",
-            "http://file.bmob.cn/M02/5A/B7/oYYBAFajMjeAUJ6bAACp5TYCw2c909.jpg",
-            "http://file.bmob.cn/M02/5A/B9/oYYBAFajMsCASQSTAAST9c5hnKk541.jpg",
-            "http://file.bmob.cn/M02/5A/B9/oYYBAFajMt6ACKvpAAFCadMFDZ0001.jpg",
-            "http://file.bmob.cn/M02/5A/BA/oYYBAFajMxaAcCHVAAFMn10yiSc776.jpg",
-            "http://file.bmob.cn/M02/5A/BB/oYYBAFajM0WAeSXuAAPMSTPknmg198.jpg",
-            "http://file.bmob.cn/M02/5A/BB/oYYBAFajM2uAF2dAAAERt2oghvQ131.jpg",
-            "http://file.bmob.cn/M02/5A/BD/oYYBAFajM9mAfvhbAAEAaJskdeI618.jpg",
-            "http://file.bmob.cn/M02/5A/BE/oYYBAFajM_GAY_sdAAIiUMzp8aA126.jpg",
-            "http://file.bmob.cn/M02/5A/BF/oYYBAFajNBCAfPCYAAIXneirgI8186.jpg",
-            "http://file.bmob.cn/M02/5A/C0/oYYBAFajNEuAdQRXAAEeDe0Ytew460.jpg",
-            "http://file.bmob.cn/M02/5A/C1/oYYBAFajNGeAHKBYAACR7VAH6tY388.jpg",
-            "http://file.bmob.cn/M02/5A/C4/oYYBAFajNOOANYPbAAIMih4I730340.jpg",
-            "http://file.bmob.cn/M02/5A/C4/oYYBAFajNP6AREhrAAFRYvfSI1o564.jpg",
-            "http://file.bmob.cn/M02/5A/C5/oYYBAFajNRyASQs4AABNrzBmPsU695.jpg",
-            "http://file.bmob.cn/M02/5A/C5/oYYBAFajNTCAZJWYAACFnWVbblw284.jpg",
-            "http://file.bmob.cn/M02/5A/C6/oYYBAFajNUaACmmCAACd5x8slZY981.jpg",
-            "http://file.bmob.cn/M02/5A/C6/oYYBAFajNWKALgknAAHaJgXlKLI169.jpg",
-            "http://file.bmob.cn/M02/5A/C7/oYYBAFajNZyAVA0mAAX6uqgz5os812.png",
-            "http://file.bmob.cn/M02/5A/CC/oYYBAFajNoeAWF96AAYHTWlvWA8779.png",
-            "http://file.bmob.cn/M02/5A/D0/oYYBAFajN4uAcFDhAAbKaer4urk522.png",
-            "http://file.bmob.cn/M02/5A/D3/oYYBAFajODSAe5iEAAgDnDRtjG0045.png",
-            "http://file.bmob.cn/M02/5A/D6/oYYBAFajOh6AH4ZKAANQpB8MUBQ569.png",
-            "http://file.bmob.cn/M02/5A/D6/oYYBAFajOmSAZHFRAAbpe8mI4v0254.png",
-            "http://file.bmob.cn/M02/5A/D7/oYYBAFajOpWAKl8gAAZ8d8Z0BAM967.png",
-            "http://file.bmob.cn/M02/5A/D7/oYYBAFajOr-Aapj2AAaQOo6Zvzs039.png",
-            "http://file.bmob.cn/M02/5A/D8/oYYBAFajOv2ANQlZAAg-CYhjjLQ254.png",
-            "http://file.bmob.cn/M02/5A/D9/oYYBAFajOyyAaEqvAAavKIaVqfs654.png",
-            "http://file.bmob.cn/M02/5A/DA/oYYBAFajO3WAMt9LAAdYtJz1cCE193.png",
-            "http://file.bmob.cn/M02/5A/E1/oYYBAFajPwqAAVQaAAd1j6hRHZw363.png",
-            "http://file.bmob.cn/M02/5A/E9/oYYBAFajQruAdJYeAAd3DzoZwNk311.png",
-            "http://file.bmob.cn/M02/5A/F4/oYYBAFajRpiAAczeAAgXftIUsqk135.png"
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg", "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg", "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg", "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
+            "http://bmob-cdn-12829.b0.upaiyun.com/2017/07/11/21d8683440fcb541807789b5eded8b32.jpg",
     };
 
     public static int[] DRAWER_TOP_URL = {
@@ -587,7 +584,7 @@ public class CoCoinUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.MINUTE, 0);
-        if (CoCoinUtil.WEEK_START_WITH_SUNDAY) {
+        if (HaStarUtil.WEEK_START_WITH_SUNDAY) {
             int[] diff = new int[]{0, 0, -1, -2, -3, -4, -5, -6};
             calendar.add(Calendar.DATE, diff[nowDayOfWeek]);
         } else {
@@ -611,7 +608,7 @@ public class CoCoinUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.MINUTE, 0);
-        if (CoCoinUtil.WEEK_START_WITH_SUNDAY) {
+        if (HaStarUtil.WEEK_START_WITH_SUNDAY) {
             int[] diff = new int[]{0, 0, -1, -2, -3, -4, -5, -6};
             calendar.add(Calendar.DATE, diff[nowDayOfWeek] - 7);
         } else {
@@ -635,7 +632,7 @@ public class CoCoinUtil {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.MINUTE, 0);
-        if (CoCoinUtil.WEEK_START_WITH_SUNDAY) {
+        if (HaStarUtil.WEEK_START_WITH_SUNDAY) {
             int[] diff = new int[]{0, 0, -1, -2, -3, -4, -5, -6};
             calendar.add(Calendar.DATE, diff[nowDayOfWeek] + 7);
         } else {
@@ -1115,16 +1112,16 @@ public class CoCoinUtil {
     }
 
 
-    private static CoCoinUtil ourInstance = new CoCoinUtil();
+    private static HaStarUtil ourInstance = new HaStarUtil();
 
-    public static CoCoinUtil getInstance() {
+    public static HaStarUtil getInstance() {
         if (ourInstance == null || typefaceLatoLight == null || typefaceLatoHairline == null) {
-            ourInstance = new CoCoinUtil();
+            ourInstance = new HaStarUtil();
             init(MyApplication.getAppContext());
         }
         return ourInstance;
     }
 
-    private CoCoinUtil() {
+    private HaStarUtil() {
     }
 }

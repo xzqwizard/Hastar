@@ -2,24 +2,17 @@ package com.wizard.hastar.ui.money_manager.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -29,34 +22,21 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.jaeger.library.StatusBarUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.wizard.hastar.BuildConfig;
 import com.wizard.hastar.R;
 import com.wizard.hastar.adapter.TodayViewFragmentAdapter;
 import com.wizard.hastar.base.BaseActivity;
+import com.wizard.hastar.ui.SettingActivity;
 import com.wizard.hastar.ui.money_manager.util.RecordManager;
 import com.wizard.hastar.ui.money_manager.util.SettingManager;
-import com.wizard.hastar.util.CoCoinUtil;
+import com.wizard.hastar.util.HaStarUtil;
 import com.wizard.hastar.util.ToastUtil;
 import com.wizard.hastar.widget.CustomSliderView;
 import com.wizard.hastar.widget.RiseNumberTextView;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -69,7 +49,7 @@ public class AccountBookTodayViewActivity extends BaseActivity {
     private MaterialViewPager mViewPager;
 
     private DrawerLayout mDrawer;
-//    private ActionBarDrawerToggle mDrawerToggle;
+    //    private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
 
     private TodayViewFragmentAdapter todayModeAdapter = null;
@@ -109,18 +89,18 @@ public class AccountBookTodayViewActivity extends BaseActivity {
         mViewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         userName = (TextView) findViewById(R.id.user_name);
         userEmail = (TextView) findViewById(R.id.user_email);
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
+        userName.setTypeface(HaStarUtil.typefaceLatoRegular);
+        userEmail.setTypeface(HaStarUtil.typefaceLatoLight);
 
 
         setFonts();
 
         View view = mViewPager.getRootView();
         title = (TextView) view.findViewById(R.id.logo_white);
-        title.setTypeface(CoCoinUtil.typefaceLatoLight);
+        title.setTypeface(HaStarUtil.typefaceLatoLight);
         title.setText(SettingManager.getInstance().getAccountBookName());
 
-        mViewPager.getPagerTitleStrip().setTypeface(CoCoinUtil.GetTypeface(), Typeface.NORMAL);
+        mViewPager.getPagerTitleStrip().setTypeface(HaStarUtil.GetTypeface(), Typeface.NORMAL);
 
         setTitle("");
 
@@ -139,9 +119,9 @@ public class AccountBookTodayViewActivity extends BaseActivity {
         syncIcon = (MaterialIconView) mDrawer.findViewById(R.id.sync_icon);
         setIconEnable(syncIcon, SettingManager.getInstance().getLoggenOn());
         monthExpenseTip = (TextView) mDrawer.findViewById(R.id.month_expense_tip);
-        monthExpenseTip.setTypeface(CoCoinUtil.GetTypeface());
+        monthExpenseTip.setTypeface(HaStarUtil.GetTypeface());
         monthExpense = (RiseNumberTextView) mDrawer.findViewById(R.id.month_expense);
-        monthExpense.setTypeface(CoCoinUtil.typefaceLatoLight);
+        monthExpense.setTypeface(HaStarUtil.typefaceLatoLight);
 
         if (SettingManager.getInstance().getIsMonthLimit()) {
             monthExpenseTip.setVisibility(View.VISIBLE);
@@ -198,8 +178,8 @@ public class AccountBookTodayViewActivity extends BaseActivity {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndDrawable(
-                        CoCoinUtil.GetTagColor(page - 2),
-                        CoCoinUtil.GetTagDrawable(-3)
+                        HaStarUtil.GetTagColor(page - 2),
+                        HaStarUtil.GetTagDrawable(-3)
                 );
             }
         });
@@ -220,7 +200,7 @@ public class AccountBookTodayViewActivity extends BaseActivity {
 
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
-        HashMap<String, Integer> urls = CoCoinUtil.GetDrawerTopUrl();
+        HashMap<String, Integer> urls = HaStarUtil.GetDrawerTopUrl();
 
         for (String name : urls.keySet()) {
             CustomSliderView customSliderView = new CustomSliderView(this);
@@ -345,12 +325,7 @@ public class AccountBookTodayViewActivity extends BaseActivity {
     }
 
     private void loadSettings() {
-
-        Log.d("Saver", "SETTINGS");
-
-        Intent intent = new Intent(mContext, AccountBookSettingActivity.class);
-        startActivity(intent);
-
+        startActivity(new Intent(AccountBookTodayViewActivity.this, SettingActivity.class));
     }
 
     @Override
@@ -429,18 +404,18 @@ public class AccountBookTodayViewActivity extends BaseActivity {
     }
 
     private void setFonts() {
-        userName.setTypeface(CoCoinUtil.typefaceLatoRegular);
-        userEmail.setTypeface(CoCoinUtil.typefaceLatoLight);
-        ((TextView) findViewById(R.id.custom_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.tag_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.month_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.list_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.report_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.sync_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.settings_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.help_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.feedback_text)).setTypeface(CoCoinUtil.GetTypeface());
-        ((TextView) findViewById(R.id.about_text)).setTypeface(CoCoinUtil.GetTypeface());
+        userName.setTypeface(HaStarUtil.typefaceLatoRegular);
+        userEmail.setTypeface(HaStarUtil.typefaceLatoLight);
+        ((TextView) findViewById(R.id.custom_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.tag_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.month_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.list_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.report_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.sync_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.settings_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.help_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.feedback_text)).setTypeface(HaStarUtil.GetTypeface());
+        ((TextView) findViewById(R.id.about_text)).setTypeface(HaStarUtil.GetTypeface());
     }
 
     private void setListeners() {
